@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({
-  imagePath: {
-    type: String,
-    required: true,
-  },
+const productSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -18,4 +14,16 @@ const ProductSchema = new Schema({
     type: String,
     required: true,
   },
+  countInStock: {
+    type: Number,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
 });
+
+const Product = mongoose.model("product", productSchema);
+
+module.exports = Product;

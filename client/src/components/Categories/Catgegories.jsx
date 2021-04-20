@@ -4,8 +4,8 @@ import {
   Form,
   FormControl,
   Button,
-  Card,
-  CardDeck,
+  // Card,
+  // CardDeck,
 } from "react-bootstrap";
 
 export class Catgegories extends Component {

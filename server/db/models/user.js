@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 //Define user requirements upon sign up
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
