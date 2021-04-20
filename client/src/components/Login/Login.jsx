@@ -33,7 +33,7 @@ export default class Login extends Component {
       <section className="login">
         <div className="login__card">
           <div className="login__welcome">
-            <h1 className="login__welcome--title">Login</h1>
+            <h1 className="login__welcome--title">Log In</h1>
           </div>
           <form className="login__form" onSubmit={this.handleSubmit}>
             <div className="login__form--card">

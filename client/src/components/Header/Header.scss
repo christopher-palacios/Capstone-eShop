@@ -3,7 +3,7 @@
 .nav {
   &__color {
     width: 100%;
-    background-color: #264653;
+    background-color: $blue;
   }
   &__brand {
     font-size: 38px;
@@ -13,7 +13,11 @@
   box-shadow: 0px 0px 8px 2px #0000003d;
 }
 
-.nav-link {
-  color: white;
-  font-size: 22px;
+.navbar-dark .navbar-nav .nav-link {
+  color: $white;
+  font-size: 20px;
+  &:hover {
+    font-size: 22px;
+    color: $red;
+  }
 }

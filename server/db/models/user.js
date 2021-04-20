@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+//Define user requirements upon sign up
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -32,6 +33,8 @@ const userSchema = new mongoose.Schema({
 //[1, 2, 3, 4, 5].forEach() = example of instance method
 
 //Define some instance methods
+
+//Removes users sensitive info (password) before returning info
 userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
@@ -39,6 +42,7 @@ userSchema.methods.toJSON = function () {
   return userObject;
 };
 
+//Generates token for user upon sign in
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const token = jwt.sign(
@@ -49,7 +53,7 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-//
+//Find user by credentials( checks if email is valid then compares for correct password)
 userSchema.statics.findByCredentials = async function (email, password) {
   const user = await User.findOne({ email: email });
   if (!user) throw new Error("No user found with that email");

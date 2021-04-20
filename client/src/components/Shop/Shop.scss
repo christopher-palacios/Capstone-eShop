@@ -1,37 +1,75 @@
 @use '../../partials//partials' as *;
 
 .sub-nav {
-  background-color: #264653;
+  background-color: $grey;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 24px;
+  margin: 16px 16px 4px 16px;
+  @include tablet {
+    margin: 32px 40px 16px 40px;
+  }
   &__links {
+    box-sizing: border-box;
     padding: 8px;
     justify-content: center;
     @include tablet {
       justify-content: space-evenly;
     }
     &--tag {
-      color: white;
-      font-size: 20px;
+      color: $black;
+      padding: 0.5rem;
+      font-size: 16px;
       &:hover {
-        font-weight: 600px;
-        color: #f4a261;
+        color: $blue;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      &:focus {
+        color: $red;
       }
     }
   }
   &__form {
     display: flex;
     &--input {
-      width: 200px;
-      @include tablet {
-        width: 4000px;
+      width: 170px;
+      border: 1px solid $black;
+      &:focus {
+        border: 1px solid $red;
+        outline: none;
       }
+      // @include tablet {
+      //   width: 4000px;
+      //   outline: none;
+
+      // }
     }
     &--button {
       margin-left: 8px;
-      background-color: white;
+      background-color: $white;
+    }
+  }
+}
+.shop {
+  &__card {
+    display: grid;
+    justify-content: center;
+    // width: 300px;
+    margin: 0 auto;
+    &--indv {
+      margin: 16px;
+      @include tablet {
+        margin: 24px;
+      }
+    }
+    @include tablet {
+      grid-template-columns: repeat(3, 33%);
+
+      margin: 0 24px;
+    }
+    @include desktop {
+      grid-template-columns: repeat(4, 25%);
     }
   }
 }

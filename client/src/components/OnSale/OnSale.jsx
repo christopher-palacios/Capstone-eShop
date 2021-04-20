@@ -1,39 +1,19 @@
-import axios from "axios";
-import React from "react";
-import "./Shop.scss";
+import React, { Component } from "react";
 import {
   Nav,
-  Card,
-  CardDeck,
   Form,
   FormControl,
   Button,
+  Card,
+  CardDeck,
 } from "react-bootstrap";
 
-class Shop extends React.Component {
-  state = {
-    currentUser: null,
-  };
-
-  componentDidMount() {
-    //make axios call to backend to get currentUser info and set it to state
-    const token = sessionStorage.getItem("token");
-    axios
-      .get("/api/users/current", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        this.setState({ currentUser: res.data });
-      });
-  }
-
+class OnSale extends Component {
   render() {
     return (
       <section>
         <div className="sub-nav">
-          <Nav className="sub-nav__links" activeKey="/home">
+          <Nav className="sub-nav__links">
             <Nav.Item>
               <Nav.Link className="sub-nav__links--tag" href="/shop/new">
                 Whats New
@@ -64,9 +44,9 @@ class Shop extends React.Component {
           </Nav>
         </div>
         <div className="shop">
-          <div className="shop__container">
-            <CardDeck className="shop__card">
-              <Card className="shop__card--indv">
+          <div className="shop__cards">
+            <CardDeck>
+              <Card>
                 <Card.Img variant="top" src="holder.js/100px160" />
                 <Card.Body>
                   <Card.Title>Card title</Card.Title>
@@ -88,4 +68,4 @@ class Shop extends React.Component {
   }
 }
 
-export default Shop;
+export default OnSale;

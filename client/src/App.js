@@ -6,7 +6,9 @@ import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import Home from "./pages/Home";
 import Shop from "./components/Shop/Shop";
-import WhatsNew from "./components/WhatsNew/WhatsNew";
+import OnSale from "./components/OnSale/OnSale";
+import Catgegories from "./components/Categories/Catgegories";
+// import WhatsNew from "./components/WhatsNew/WhatsNew";
 // import ProtectedRoute from "./components/ProtectedRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -19,8 +21,8 @@ function App() {
         <Route path="/signup" exact component={SignUp} />
         <Route path="/" exact component={Home} />
         <Route path="/shop/new" exact component={Shop} />
-        <Route path="/shop/sale" exact component={Shop} />
-        <Route path="/shop/categories" exact component={Shop} />
+        <Route path="/shop/sale" exact component={OnSale} />
+        <Route path="/shop/categories" exact component={Catgegories} />
         {/* <ProtectedRoute exact path="/" component={} /> */}
       </Switch>
     </Router>
