@@ -1,0 +1,35 @@
+// @font-face {
+//   font-family: "AvenirReg";
+//   src: url("../assets/fonts/AvenirNextProLT/Linotype\ -\ AvenirNextLTPro-Regular.otf");
+// }
+
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+$light: "AvenirLight";
+$regular: "AvenirReg";
+$demi: "AvenirDemi";
+$bold: "AvenirBold";
+$black: #323232;
+$bfblue: #0095ff;
+$bfdarkblue: #0065ad;
+$isblue: #004892;
+$isdarkblue: #002f5f;
+$mercury: #e1e1e1;
+$silver: #afafaf;
+$alabaster: #fafafa;

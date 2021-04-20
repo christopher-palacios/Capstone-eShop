@@ -1,0 +1,90 @@
+@use '../../partials/partials' as *;
+@use '../../App.scss';
+
+.login {
+  display: flex;
+  justify-content: center;
+  background-image: url("../../assets/images/plant.jpg");
+  background-size: cover;
+  background-position: left;
+  align-items: center;
+  height: 96vh;
+  @include tablet {
+    // justify-content: flex-end;
+    // padding-right: 180px;
+  }
+
+  &__card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: -1px 2px 20px 2px;
+    // width: 50%;
+    padding: 24px;
+    // margin-right: 80px;
+    width: 343px;
+    height: 42rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @include tablet {
+      width: 660px;
+    }
+    @include desktop {
+    }
+  }
+  &__welcome {
+    padding: 36px;
+    background-color: #2a9d8f;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    // border-bottom-left-radius: 20px;
+    // width: 50%;
+    height: 30%;
+    &--title {
+      color: white;
+      font-size: 60px;
+    }
+  }
+  &__form {
+    // width: 50%;
+    height: 60%;
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+    &--card {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    &--label {
+      margin: 16px 0 4px 0;
+    }
+    &--input {
+      border-radius: 10px;
+      padding-left: 12px;
+      border: 1px solid #f4a261;
+      height: 38px;
+      &:focus {
+        outline: none;
+        border: 3px solid #e76f51;
+      }
+    }
+    &--button {
+      margin: 30px 0;
+      border: none;
+      background-color: #f4a261;
+      border-radius: 10px;
+      height: 38px;
+      &:hover {
+        background-color: #2a9d8f;
+      }
+      &:active {
+        background-color: #e76f51;
+      }
+    }
+  }
+  &__redirect {
+    text-align: center;
+    font-size: 14px;
+  }
+}

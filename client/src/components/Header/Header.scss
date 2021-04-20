@@ -1,0 +1,19 @@
+@use '../../partials/partials' as *;
+@use "../../App.scss" as *;
+.nav {
+  &__color {
+    width: 100%;
+    background-color: #264653;
+  }
+  &__brand {
+    font-size: 38px;
+  }
+}
+.navbar-toggler {
+  box-shadow: 0px 0px 8px 2px #0000003d;
+}
+
+.nav-link {
+  color: white;
+  font-size: 22px;
+}
