@@ -1,5 +1,16 @@
 .home {
+  // margin: 40px 0;
+  &__carousel {
+    height: 60vh;
+    width: 100%;
+  }
+  &__one {
+    background-image: url("../assets/images/pexels-jan-kopřiva-3281020.jpg");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+  }
   &__hero {
-    height: 450px;
+    height: 80vh;
   }
 }

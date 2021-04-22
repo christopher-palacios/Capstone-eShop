@@ -3,9 +3,9 @@ import "./Categories.scss";
 import React, { Component } from "react";
 import {
   Nav,
-  Form,
-  FormControl,
-  Button,
+  // Form,
+  // FormControl,
+  // Button,
   Card,
   CardDeck,
 } from "react-bootstrap";
@@ -15,38 +15,40 @@ const baseUrl = "http://localhost:8080/api";
 
 class Catgegories extends Component {
   state = {
-    catgegories: [],
+    categoryList: [],
   };
   componentDidMount() {
     //Get request for categories
     axios.get(`${baseUrl}/categories`).then((res) => {
-      this.setState({ catgegories: res.data });
+      this.setState({ categoryList: res.data });
     });
   }
 
   render() {
-    console.log(this.state.catgegories);
+    console.log(this.state.categoryList);
     console.log(this.props);
     return (
       <section>
         <div className="sub-nav">
           <Nav className="sub-nav__links" activeKey="/home">
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/new">
-                Whats New
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/sale">
-                On Sale
-              </Nav.Link>
-            </Nav.Item>
+            {this.state.categoryList?.map((link) => {
+              return (
+                <Nav.Item>
+                  <Nav.Link
+                    className="sub-nav__links--tag"
+                    href={`/categories/${link._id}`}
+                  >
+                    {link.name}
+                  </Nav.Link>
+                </Nav.Item>
+              );
+            })}
             <Nav.Item>
               <Nav.Link className="sub-nav__links--tag" href="/categories">
                 Categories
               </Nav.Link>
             </Nav.Item>
-            <div className="sub-nav__form">
+            {/* <div className="sub-nav__form">
               <Form inline>
                 <FormControl
                   type="text"
@@ -57,12 +59,12 @@ class Catgegories extends Component {
                   Search
                 </Button>
               </Form>
-            </div>
+            </div> */}
           </Nav>
         </div>
         <div className="categories">
           <div className="categories__container">
-            {this.state.catgegories.map((cat) => {
+            {this.state.categoryList?.map((cat) => {
               return (
                 <div className="categories__card">
                   <Link

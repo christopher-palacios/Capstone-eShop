@@ -16,6 +16,12 @@ class Shop extends React.Component {
   state = {
     currentUser: null,
     selectedCategory: [],
+    categoryList: [],
+    search: "",
+  };
+
+  handleChange = (e) => {
+    this.setState({ search: e.target.value });
   };
 
   componentDidMount() {
@@ -23,6 +29,10 @@ class Shop extends React.Component {
 
     axios.get(`${baseUrl}/categories/${id}`).then((res) => {
       this.setState({ selectedCategory: res.data });
+    });
+
+    axios.get(`${baseUrl}/categories`).then((res) => {
+      this.setState({ categoryList: res.data });
     });
 
     //axios call to backend to get currentUser info and set it to state
@@ -41,20 +51,24 @@ class Shop extends React.Component {
 
   render() {
     console.log(this.state.selectedCategory);
+    console.log(this.state.categoryList);
+    console.log(this.state.search);
     return (
       <section>
         <div className="sub-nav">
           <Nav className="sub-nav__links" activeKey="/home">
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/categories/:id">
-                Whats New
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/sale">
-                On Sale
-              </Nav.Link>
-            </Nav.Item>
+            {this.state.categoryList?.map((link) => {
+              return (
+                <Nav.Item>
+                  <Nav.Link
+                    className="sub-nav__links--tag"
+                    href={`/categories/${link._id}`}
+                  >
+                    {link.name}
+                  </Nav.Link>
+                </Nav.Item>
+              );
+            })}
             <Nav.Item>
               <Nav.Link className="sub-nav__links--tag" href="/categories">
                 Categories
@@ -64,6 +78,7 @@ class Shop extends React.Component {
               <Form inline>
                 <FormControl
                   type="text"
+                  onChange={this.handleChange}
                   placeholder="Search"
                   className="sub-nav__form--input"
                 />
@@ -77,27 +92,33 @@ class Shop extends React.Component {
         <div className="shop">
           <div className="shop__container">
             <CardDeck className="shop__card">
-              {this.state.selectedCategory.map((item) => {
-                return (
-                  <Card className="shop__card--indv" key={item._id}>
-                    <Card.Body>
-                      <Card.Link
-                        className="shop__card--top"
-                        href={`/product/${item._id}`}
-                      >
-                        <Card.Img variant="top" src={item.image} />
-                      </Card.Link>
-                    </Card.Body>
-                    <Card.Footer>
-                      <Card.Title>{item.name}</Card.Title>
+              {this.state.selectedCategory
+                ?.filter((item) => {
+                  return item.name
+                    .toLowerCase()
+                    .includes(this.state.search.toLowerCase());
+                })
+                .map((bike) => {
+                  return (
+                    <Card className="shop__card--indv" key={bike._id}>
+                      <Card.Body>
+                        <Card.Link
+                          className="shop__card--top"
+                          href={`/product/${bike._id}`}
+                        >
+                          <Card.Img variant="top" src={bike.image} />
+                        </Card.Link>
+                      </Card.Body>
+                      <Card.Footer>
+                        <Card.Title>{bike.name}</Card.Title>
 
-                      <small className="text-muted">
-                        <Card.Text>{item.price}</Card.Text>
-                      </small>
-                    </Card.Footer>
-                  </Card>
-                );
-              })}
+                        <small className="text-muted">
+                          <Card.Text>{bike.price}</Card.Text>
+                        </small>
+                      </Card.Footer>
+                    </Card>
+                  );
+                })}
             </CardDeck>
           </div>
         </div>
