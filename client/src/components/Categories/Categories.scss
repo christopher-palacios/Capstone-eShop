@@ -1,0 +1,20 @@
+@use '../../partials/partials' as *;
+
+.categories {
+  &__container {
+    padding: 16px;
+    @include tablet {
+      padding: 16px 40px;
+    }
+  }
+  &__card {
+    margin-bottom: 16px;
+    @include tablet {
+      margin-bottom: 36px;
+    }
+
+    &--card {
+      height: 400px;
+    }
+  }
+}

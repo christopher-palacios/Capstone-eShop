@@ -56,11 +56,17 @@
     display: grid;
     justify-content: center;
     // width: 300px;
+
     margin: 0 auto;
+    &--top {
+      justify-content: space-between;
+    }
     &--indv {
+      box-shadow: 0px 0px 16px -8px;
       margin: 16px;
       @include tablet {
         margin: 24px;
+        // padding-top: 30px;
       }
     }
     @include tablet {

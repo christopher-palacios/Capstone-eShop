@@ -23,7 +23,7 @@ function Header() {
             <NavDropdown.Item className="nav__link" href="/shop/sale">
               On Sale
             </NavDropdown.Item>
-            <NavDropdown.Item className="nav__link" href="/shop/categories">
+            <NavDropdown.Item className="nav__link" href="/categories">
               Categories
             </NavDropdown.Item>
             <NavDropdown.Divider />

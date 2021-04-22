@@ -20,9 +20,10 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
         <Route path="/" exact component={Home} />
-        <Route path="/shop/new" exact component={Shop} />
-        <Route path="/shop/sale" exact component={OnSale} />
-        <Route path="/shop/categories" exact component={Catgegories} />
+        <Route path="/categories" exact component={Catgegories} />
+        <Route path="/categories/:id" exact component={Shop} />
+        <Route path="/product/:id" exact component={OnSale} />
+
         {/* <ProtectedRoute exact path="/" component={} /> */}
       </Switch>
     </Router>

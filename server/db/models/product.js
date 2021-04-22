@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
+  name: {
     type: String,
     required: true,
   },
@@ -14,16 +10,28 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  countInStock: {
-    type: Number,
-    required: true,
-  },
-  imageUrl: {
+  image: {
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    // required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  categoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+  },
 });
 
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

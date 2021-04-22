@@ -1,15 +1,32 @@
+import axios from "axios";
+import "./Categories.scss";
 import React, { Component } from "react";
 import {
   Nav,
   Form,
   FormControl,
   Button,
-  // Card,
-  // CardDeck,
+  Card,
+  CardDeck,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-export class Catgegories extends Component {
+const baseUrl = "http://localhost:8080/api";
+
+class Catgegories extends Component {
+  state = {
+    catgegories: [],
+  };
+  componentDidMount() {
+    //Get request for categories
+    axios.get(`${baseUrl}/categories`).then((res) => {
+      this.setState({ catgegories: res.data });
+    });
+  }
+
   render() {
+    console.log(this.state.catgegories);
+    console.log(this.props);
     return (
       <section>
         <div className="sub-nav">
@@ -25,7 +42,7 @@ export class Catgegories extends Component {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/categories">
+              <Nav.Link className="sub-nav__links--tag" href="/categories">
                 Categories
               </Nav.Link>
             </Nav.Item>
@@ -43,9 +60,41 @@ export class Catgegories extends Component {
             </div>
           </Nav>
         </div>
-        <div className="shop">
-          <div className="shop__container">
-            <h3> stuff here</h3>
+        <div className="categories">
+          <div className="categories__container">
+            {this.state.catgegories.map((cat) => {
+              return (
+                <div className="categories__card">
+                  <Link
+                    to={`/categories/${cat._id}`}
+                    className="categories__card--link"
+                  >
+                    <CardDeck>
+                      <Card className="categories__card--card">
+                        <Card.Img
+                          className="categories__card--image"
+                          variant="top"
+                          // src={}
+                        />
+                        <Card.Body>
+                          <Card.Title>{cat.name}</Card.Title>
+                          <Card.Text>
+                            This is a wider card with supporting text below as a
+                            natural lead-in to additional content. This content
+                            is a little bit longer.
+                          </Card.Text>
+                        </Card.Body>
+                        <Card.Footer>
+                          <small className="text-muted">
+                            Last updated 3 mins ago
+                          </small>
+                        </Card.Footer>
+                      </Card>
+                    </CardDeck>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
