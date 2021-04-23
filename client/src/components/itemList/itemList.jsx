@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import "./Shop.scss";
+import "./itemList.scss";
 import {
   Nav,
   Card,
@@ -8,6 +8,8 @@ import {
   Form,
   FormControl,
   Button,
+  Dropdown,
+  DropdownButton,
 } from "react-bootstrap";
 
 const baseUrl = "http://localhost:8080/api";
@@ -18,6 +20,7 @@ class Shop extends React.Component {
     selectedCategory: [],
     categoryList: [],
     search: "",
+    drop: "",
   };
 
   handleChange = (e) => {
@@ -26,13 +29,20 @@ class Shop extends React.Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
-
+    console.log(id);
+    // GET selectedCategory by id
     axios.get(`${baseUrl}/categories/${id}`).then((res) => {
+      console.log(res);
       this.setState({ selectedCategory: res.data });
     });
 
+    // GET list of categories
     axios.get(`${baseUrl}/categories`).then((res) => {
       this.setState({ categoryList: res.data });
+      console.log(res.data);
+      const selectedCat = res.data.filter((cat) => cat._id === id);
+      const selectedCatName = selectedCat[0].name;
+      this.setState({ drop: selectedCatName });
     });
 
     //axios call to backend to get currentUser info and set it to state
@@ -50,14 +60,13 @@ class Shop extends React.Component {
   }
 
   render() {
-    console.log(this.state.selectedCategory);
-    console.log(this.state.categoryList);
-    console.log(this.state.search);
+    const { drop, search, categoryList, selectedCategory } = this.state;
+    console.log(drop);
     return (
       <section>
         <div className="sub-nav">
           <Nav className="sub-nav__links" activeKey="/home">
-            {this.state.categoryList?.map((link) => {
+            {/* {this.state.categoryList?.map((link) => {
               return (
                 <Nav.Item>
                   <Nav.Link
@@ -73,7 +82,7 @@ class Shop extends React.Component {
               <Nav.Link className="sub-nav__links--tag" href="/categories">
                 Categories
               </Nav.Link>
-            </Nav.Item>
+            </Nav.Item> */}
             <div className="sub-nav__form">
               <Form inline>
                 <FormControl
@@ -87,16 +96,30 @@ class Shop extends React.Component {
                 </Button>
               </Form>
             </div>
+            <DropdownButton
+              id="dropdown-basic-button"
+              variant="Secondary"
+              title={drop}
+            >
+              {categoryList.map((cat) => {
+                return (
+                  <Dropdown.Item href={`/categories/${cat._id}`}>
+                    {cat.name}
+                  </Dropdown.Item>
+                );
+              })}
+              {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+            </DropdownButton>
           </Nav>
         </div>
         <div className="shop">
           <div className="shop__container">
             <CardDeck className="shop__card">
-              {this.state.selectedCategory
+              {selectedCategory
                 ?.filter((item) => {
-                  return item.name
-                    .toLowerCase()
-                    .includes(this.state.search.toLowerCase());
+                  return item.name.toLowerCase().includes(search.toLowerCase());
                 })
                 .map((bike) => {
                   return (
@@ -106,7 +129,11 @@ class Shop extends React.Component {
                           className="shop__card--top"
                           href={`/product/${bike._id}`}
                         >
-                          <Card.Img variant="top" src={bike.image} />
+                          <Card.Img
+                            className="shop__card--img"
+                            variant="top"
+                            src={bike.image}
+                          />
                         </Card.Link>
                       </Card.Body>
                       <Card.Footer>

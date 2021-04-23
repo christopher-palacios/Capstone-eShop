@@ -5,7 +5,7 @@ import Header from "./components/Header/Header";
 import SignUp from "./components/SignUp/SignUp";
 import Login from "./components/Login/Login";
 import Home from "./pages/Home";
-import Shop from "./components/Shop/Shop";
+import itemList from "./components/itemList/itemList";
 import OnSale from "./components/OnSale/OnSale";
 import Catgegories from "./components/Categories/Catgegories";
 // import WhatsNew from "./components/WhatsNew/WhatsNew";
@@ -21,9 +21,8 @@ function App() {
         <Route path="/signup" exact component={SignUp} />
         <Route path="/" exact component={Home} />
         <Route path="/categories" exact component={Catgegories} />
-        <Route path="/categories/:id" exact component={Shop} />
+        <Route path="/categories/:id" exact component={itemList} />
         <Route path="/product/:id" exact component={OnSale} />
-
         {/* <ProtectedRoute exact path="/" component={} /> */}
       </Switch>
     </Router>
