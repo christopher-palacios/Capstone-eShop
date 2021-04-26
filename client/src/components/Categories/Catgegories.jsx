@@ -2,7 +2,7 @@ import axios from "axios";
 import "./Categories.scss";
 import React, { Component } from "react";
 import {
-  Nav,
+  // Nav,
   // Form,
   // FormControl,
   // Button,
@@ -29,11 +29,11 @@ class Catgegories extends Component {
     console.log(this.props);
     return (
       <section>
-        <div className="sub-nav">
+        {/* <div className="sub-nav">
           <Nav className="sub-nav__links" activeKey="/home">
             {this.state.categoryList?.map((link) => {
               return (
-                <Nav.Item>
+                <Nav.Item key={link._id}>
                   <Nav.Link
                     className="sub-nav__links--tag"
                     href={`/categories/${link._id}`}
@@ -48,7 +48,7 @@ class Catgegories extends Component {
                 Categories
               </Nav.Link>
             </Nav.Item>
-            {/* <div className="sub-nav__form">
+            <div className="sub-nav__form">
               <Form inline>
                 <FormControl
                   type="text"
@@ -59,14 +59,14 @@ class Catgegories extends Component {
                   Search
                 </Button>
               </Form>
-            </div> */}
+            </div>
           </Nav>
-        </div>
+        </div> */}
         <div className="categories">
           <div className="categories__container">
             {this.state.categoryList?.map((cat) => {
               return (
-                <div className="categories__card">
+                <div key={cat._id} className="categories__card">
                   <Link
                     to={`/categories/${cat._id}`}
                     className="categories__card--link"

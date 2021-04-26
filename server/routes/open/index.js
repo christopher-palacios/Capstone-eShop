@@ -20,9 +20,16 @@ router.post("/users", async (req, res) => {
 // Login a user
 router.post("/users/login", async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   const user = await User.findByCredentials(email, password);
   const token = await user.generateAuthToken();
+  console.log("we have it", user);
   res.status(200).json({ user, token });
+});
+
+// Get current user
+router.get("/current", async (req, res) => {
+  res.status(200).json(req.user);
 });
 
 // Get list of categories

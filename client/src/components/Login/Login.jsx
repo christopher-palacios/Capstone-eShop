@@ -4,30 +4,6 @@ import axios from "axios";
 import "./Login.scss";
 
 export default class Login extends Component {
-  state = {
-    formData: null,
-  };
-
-  handleChange = (e) => {
-    //grab form data and set it to state
-    this.setState({
-      formData: { ...this.state.formData, [e.target.name]: e.target.value },
-    });
-  };
-
-  handleSubmit = (e) => {
-    // submit it to backend to receive token
-    e.preventDefault();
-    axios.post("/api/users", this.state.formData).then((res) => {
-      //get token from response
-      const token = res.data.token;
-      //save token in session storage
-      sessionStorage.setItem("token", token);
-      //navigate user to home page
-      this.props.history.push("/");
-    });
-  };
-
   render() {
     return (
       <section className="login">
@@ -40,16 +16,23 @@ export default class Login extends Component {
               <label className="login__form--label">Email</label>
               <input
                 className="login__form--input email"
+                onChange={this.handleChange}
                 type="email"
                 name="email"
               />
               <label className="login__form--label">Password</label>
               <input
                 className="login__form--input password"
+                onChange={this.handleChange}
                 type="password"
                 name="password"
               />
-              <button className="login__form--button">Login</button>
+              <button
+                className="login__form--button"
+                onClick={this.handleSubmit}
+              >
+                Login
+              </button>
             </div>
           </form>
           <h5 className="login__redirect">

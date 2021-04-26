@@ -45,18 +45,18 @@ class Shop extends React.Component {
       this.setState({ drop: selectedCatName });
     });
 
-    //axios call to backend to get currentUser info and set it to state
-    // const token = sessionStorage.getItem("token");
-    // axios
-    //   .get(`${baseUrl}/users/current`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     this.setState({ currentUser: res.data });
-    //   })
-    //   .catch((err) => console.log(err));
+    // axios call to backend to get currentUser info and set it to state
+    const token = sessionStorage.getItem("token");
+    axios
+      .get(`${baseUrl}/users/current`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setState({ currentUser: res.data });
+      })
+      .catch((err) => console.log(err));
   }
 
   render() {
@@ -103,14 +103,12 @@ class Shop extends React.Component {
             >
               {categoryList.map((cat) => {
                 return (
-                  <Dropdown.Item href={`/categories/${cat._id}`}>
+                  <Dropdown.Item key={cat._id} href={`/categories/${cat._id}`}>
                     {cat.name}
                   </Dropdown.Item>
                 );
               })}
-              {/* <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+              <Dropdown.Item href={`/categories`}>Categories</Dropdown.Item>
             </DropdownButton>
           </Nav>
         </div>

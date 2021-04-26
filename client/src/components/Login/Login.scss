@@ -14,23 +14,26 @@
 
   &__card {
     background-color: white;
-    border-radius: 20px;
+    border-radius: 0.3rem;
     box-shadow: -1px 2px 20px 2px;
     // width: 50%;
     padding: 24px;
     // margin-right: 80px;
-    width: 343px;
+    // width: 343px;
     height: 42rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     @include tablet {
-      width: 660px;
+      // width: 660px;
     }
     @include desktop {
     }
   }
   &__welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 36px;
     background-color: $grey;
     border-top-left-radius: 16px;
@@ -38,6 +41,17 @@
     // border-bottom-left-radius: 20px;
     // width: 50%;
     height: 30%;
+    &--close {
+      height: 30px;
+      width: 50px;
+      border: 1px solid $blue;
+      border-radius: 10px;
+      background-color: $grey;
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
     &--title {
       color: $black;
       font-size: 60px;
@@ -75,6 +89,7 @@
       height: 38px;
       &:hover {
         background-color: $blue;
+        color: $white;
       }
       &:active {
         background-color: $red;

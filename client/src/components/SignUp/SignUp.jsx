@@ -23,14 +23,17 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     // submit it to backend to receive token
     e.preventDefault();
-    axios.post("/api/users", this.state.formData).then((res) => {
-      //get token from response
-      const token = res.data.token;
-      //save token in session storage
-      sessionStorage.setItem("token", token);
-      //navigate user to home page
-      this.props.history.push("/");
-    });
+    axios
+      .post("http://localhost:8080/api/users", this.state.formData)
+      .then((res) => {
+        //get token from response
+        const token = res.data.token;
+        //save token in session storage
+        sessionStorage.setItem("token", token);
+        //navigate user to home page
+        this.props.history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -55,16 +58,23 @@ class SignUp extends Component {
               <label className="signUp__form--label">Email</label>
               <input
                 className="signUp__form--input email"
+                onChange={this.handleChange}
                 type="email"
                 name="email"
               />
               <label className="signUp__form--label">Password</label>
               <input
                 className="signUp__form--input password"
+                onChange={this.handleChange}
                 type="password"
                 name="password"
               />
-              <button className="signUp__form--button">Sign Up</button>
+              <button
+                // onClick={this.handleSubmit}
+                className="signUp__form--button"
+              >
+                Sign Up
+              </button>
             </div>
           </form>
           <h5 className="signUp__redirect">

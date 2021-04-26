@@ -34,18 +34,18 @@ const dbReset = async () => {
 
     //create new users,  products
 
-    for (let i = 0; i < 5; i++) {
-      const user = new User({
-        firstName: `${faker.name.firstName()}`,
-        lastName: `${faker.name.lastName()}`,
-        email: faker.internet.email(),
-        password: faker.internet.password(),
-      });
-      await user.save();
-    }
+    // for (let i = 0; i < 5; i++) {
+    //   const user = new User({
+    //     firstName: `${faker.name.firstName()}`,
+    //     lastName: `${faker.name.lastName()}`,
+    //     email: faker.internet.email(),
+    //     password: faker.internet.password(),
+    //   });
+    //   await user.save();
+    // }
 
     //create new categories
-    const categories = ["BMX", "Fixie", "Off Road", "Electric Bikes"];
+    const categories = ["BMX", "Fixie", "Off Road", "Electric"];
     const categoryIds = [];
 
     for (let i = 0; i < categories.length; i++) {
