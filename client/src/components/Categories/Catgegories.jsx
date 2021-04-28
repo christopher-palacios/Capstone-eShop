@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./Categories.scss";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   // Nav,
   // Form,
@@ -13,23 +13,18 @@ import { Link } from "react-router-dom";
 
 const baseUrl = "http://localhost:8080/api";
 
-class Catgegories extends Component {
-  state = {
-    categoryList: [],
-  };
-  componentDidMount() {
-    //Get request for categories
-    axios.get(`${baseUrl}/categories`).then((res) => {
-      this.setState({ categoryList: res.data });
-    });
-  }
+function Catgegories() {
+  const [categoryList, setCategoryList] = useState([]);
 
-  render() {
-    console.log(this.state.categoryList);
-    console.log(this.props);
-    return (
-      <section>
-        {/* <div className="sub-nav">
+  useEffect(() => {
+    axios.get(`${baseUrl}/categories`).then((res) => {
+      setCategoryList(res.data);
+    });
+  }, []);
+
+  return (
+    <section>
+      {/* <div className="sub-nav">
           <Nav className="sub-nav__links" activeKey="/home">
             {this.state.categoryList?.map((link) => {
               return (
@@ -62,46 +57,46 @@ class Catgegories extends Component {
             </div>
           </Nav>
         </div> */}
-        <div className="categories">
-          <div className="categories__container">
-            {this.state.categoryList?.map((cat) => {
-              return (
-                <div key={cat._id} className="categories__card">
-                  <Link
-                    to={`/categories/${cat._id}`}
-                    className="categories__card--link"
-                  >
-                    <CardDeck>
-                      <Card className="categories__card--card">
-                        <Card.Img
-                          className="categories__card--image"
-                          variant="top"
-                          // src={}
-                        />
-                        <Card.Body>
-                          <Card.Title>{cat.name}</Card.Title>
-                          <Card.Text>
-                            This is a wider card with supporting text below as a
-                            natural lead-in to additional content. This content
-                            is a little bit longer.
-                          </Card.Text>
-                        </Card.Body>
-                        <Card.Footer>
-                          <small className="text-muted">
-                            Last updated 3 mins ago
-                          </small>
-                        </Card.Footer>
-                      </Card>
-                    </CardDeck>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
+      <div className="categories">
+        <div className="categories__container">
+          {categoryList?.map((cat) => {
+            return (
+              <div key={cat._id} className="categories__card">
+                <Link
+                  to={`/categories/${cat._id}`}
+                  className="categories__card--link"
+                >
+                  <CardDeck>
+                    <Card className="categories__card--card">
+                      <Card.Img
+                        className="categories__card--image"
+                        variant="top"
+                        // src={}
+                      />
+                      <Card.Body>
+                        <Card.Title>{cat.name}</Card.Title>
+                        <Card.Text>
+                          This is a wider card with supporting text below as a
+                          natural lead-in to additional content. This content is
+                          a little bit longer.
+                        </Card.Text>
+                      </Card.Body>
+                      <Card.Footer>
+                        <small className="text-muted">
+                          Last updated 3 mins ago
+                        </small>
+                      </Card.Footer>
+                    </Card>
+                  </CardDeck>
+                </Link>
+              </div>
+            );
+          })}
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+  // }
 }
 
 export default Catgegories;

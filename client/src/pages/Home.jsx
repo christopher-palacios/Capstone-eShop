@@ -1,16 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 // import { Jumbotron, Container, Carousel } from "react-bootstrap";
 import ControlledCarousel from "../components/Carousel/Carousel";
 import "./Home.scss";
 
-export class Home extends Component {
-  render() {
-    return (
-      <section className="home">
-        <div className="home__carousel">
-          <ControlledCarousel />
-        </div>
-        {/* <Jumbotron className="home__one" fluid>
+function Home() {
+  return (
+    <section className="home">
+      <div className="home__carousel">
+        <ControlledCarousel />
+      </div>
+      {/* <Jumbotron className="home__one" fluid>
           <Container className="home__hero ">
             <h1>Fluid jumbotron</h1>
             <p>
@@ -37,9 +36,8 @@ export class Home extends Component {
             </p>
           </Container>
         </Jumbotron> */}
-      </section>
-    );
-  }
+    </section>
+  );
 }
 
 export default Home;

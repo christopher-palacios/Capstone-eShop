@@ -6,6 +6,7 @@ const app = express();
 const openRoutes = require("./routes/open");
 const userRoutes = require("./routes/secure/users");
 const passport = require("./middleware/authentication");
+
 const cors = require("cors");
 const PORT = 8080;
 
@@ -17,8 +18,10 @@ app.use(express.json());
 app.use("/api/", openRoutes);
 
 //Passport middleware, any routes under this MUST have the jwt bearer token in header
+const secureCartRoutes = require("./routes/secure/carts");
 app.use("/api/*", passport.authenticate("jwt", { session: false }));
 
 app.use("/api/users", userRoutes);
+app.use("/api/cart", secureCartRoutes);
 
 app.listen(PORT, () => console.log(`Express is running on ${PORT}`));

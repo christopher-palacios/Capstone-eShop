@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Header from "./components/Header/Header";
 import SignUp from "./components/SignUp/SignUp";
-import Login from "./components/Login/Login";
+// import Login from "./components/Login/Login";
 import Home from "./pages/Home";
 import itemList from "./components/itemList/itemList";
 import OnSale from "./components/OnSale/OnSale";
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <Header />
       <Switch>
-        <Route path="/login" exact component={Login} />
+        {/* <Route path="/login" exact component={Login} /> */}
         <Route path="/signup" exact component={SignUp} />
         <Route path="/" exact component={Home} />
         <Route path="/categories" exact component={Catgegories} />

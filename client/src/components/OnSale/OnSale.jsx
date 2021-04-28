@@ -1,71 +1,55 @@
-import React, { Component } from "react";
-import {
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  Card,
-  CardDeck,
-} from "react-bootstrap";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import "./OnSale.scss";
 
-class OnSale extends Component {
-  render() {
-    return (
-      <section>
-        <div className="sub-nav">
-          <Nav className="sub-nav__links">
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/new">
-                Whats New
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/sale">
-                On Sale
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link className="sub-nav__links--tag" href="/shop/categories">
-                Categories
-              </Nav.Link>
-            </Nav.Item>
-            <div className="sub-nav__form">
-              <Form inline>
-                <FormControl
-                  type="text"
-                  placeholder="Search"
-                  className="sub-nav__form--input"
-                />
-                <Button className="sub-nav__form--button" variant="outline">
-                  Search
-                </Button>
-              </Form>
+const baseUrl = "http://localhost:8080/api";
+
+function OnSale(props) {
+  const [selectedProduct, setSelectedProduct] = useState([]);
+
+  useEffect(() => {
+    const { id } = props.match.params;
+    axios.get(`${baseUrl}/product/${id}`).then((res) => {
+      const selectedProduct = res.data;
+      setSelectedProduct(selectedProduct);
+    });
+  }, [props.match.params]);
+
+  return (
+    <>
+      <div className="product">
+        <img
+          className="product__img"
+          alt="product img"
+          src={selectedProduct.image}
+        ></img>
+        <div className="product__details">
+          <div className="product__details--top">
+            <div className="product__details--info">
+              <h1>{selectedProduct.name}</h1>
+              <h2>{selectedProduct.category}</h2>
             </div>
-          </Nav>
-        </div>
-        <div className="shop">
-          <div className="shop__cards">
-            <CardDeck>
-              <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                  <Card.Title>Card title</Card.Title>
-                  <Card.Text>
-                    This is a wider card with supporting text below as a natural
-                    lead-in to additional content. This content is a little bit
-                    longer.
-                  </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <small className="text-muted">Last updated 3 mins ago</small>
-                </Card.Footer>
-              </Card>
-            </CardDeck>
+            <div className="product__details--action">
+              <h3>QTY</h3>
+              <h3>ADD TO CART</h3>
+            </div>
           </div>
+          <div className="product__details--footer">
+            <h3>Product description</h3>
+          </div>
+          {/* <div className="product__review">
+              <div className="product__review--card">
+                <div className="product__review--head">
+                  <h3>user</h3>
+                  <h3>timestamp</h3>
+                </div>
+                <h3>review text goes here</h3>
+              </div>
+            </div> */}
         </div>
-      </section>
-    );
-  }
+      </div>
+    </>
+  );
 }
 
 export default OnSale;
