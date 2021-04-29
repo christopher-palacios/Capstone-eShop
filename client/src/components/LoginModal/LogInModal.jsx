@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
-import "./Login.scss";
+import "./LoginModal.scss";
 
 function LogInModal(props) {
   const [formData, setFormData] = useState();
@@ -17,17 +17,21 @@ function LogInModal(props) {
     // submit it to backend to receive token
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/users/login", this.state.formData)
+      .post("http://localhost:8080/api/users/login", formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;
         //get user from response
-        const { firstName, lastName } = res.data.user;
+        const { firstName, lastName, _id } = res.data.user;
+        console.log(res.data.user);
+        console.log(_id);
         const user = firstName + " " + lastName;
         //save token in session storage
         sessionStorage.setItem("token", token);
         //save user in session storage
         sessionStorage.setItem("user", user);
+        //save user id in session storage
+        sessionStorage.setItem("userId", _id);
         //navigate user to home page
         // this.props.history.push("/");
       })

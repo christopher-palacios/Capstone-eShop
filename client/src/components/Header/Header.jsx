@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import LoginModal from "../Login/LogInModal";
+import LoginModal from "../LoginModal/LogInModal";
 import "./Header.scss";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 

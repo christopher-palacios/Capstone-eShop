@@ -37,7 +37,6 @@ router.get("/categories", async (req, res) => {
   const bikes = await Bike.find();
   const categories = await Category.find();
   res.json(categories);
-  console.log(categories);
 });
 
 //  Get list of products by category id
