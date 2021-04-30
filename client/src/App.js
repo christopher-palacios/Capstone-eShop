@@ -10,9 +10,10 @@ import itemList from "./components/itemList/itemList";
 import Catgegories from "./components/Categories/Catgegories";
 // import AppContext from "./components/AppContext/AppContext";
 // import WhatsNew from "./components/WhatsNew/WhatsNew";
-// import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AppProvider } from "./components/AppContext/AppContext";
+import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           <Route path="/categories" exact component={Catgegories} />
           <Route path="/categories/:id" exact component={itemList} />
           <Route path="/product/:id" exact component={OnSale} />
-          {/* <ProtectedRoute exact path="/" component={} /> */}
+          <ProtectedRoute exact path="/cart" component={ShoppingCart} />
           <Route path="/cart" exact />
         </Switch>
       </Router>

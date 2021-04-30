@@ -9,58 +9,99 @@ router.post("/", async (req, res) => {
   const existingCart = await Cart.findOne({ userId: req.user._id });
 
   if (existingCart) {
-    //your logic
     //Check if cart contains currentProduct
-    const currentProductInCart = existingCart.products.filter((obj) => {
-      obj.productId === product._id;
+    let existingProductInCart = existingCart.products.find((obj) => {
+      return obj.productId.toString() === product._id.toString();
     });
-    // console.log(existingCart);
-    console.log(currentProductInCart);
-    // console.log("productId", product._id);
-    //IF the current product is not in the cart
-    if (!currentProductInCart) {
-      //then UPDATE cart with current product
-      const cartUpdate = new Cart({
-        products: {
-          productId: product._id,
-          productTotal: total,
-          name: product.name,
-          price,
-          image: product.image,
-          category: product.category,
-          quantity,
-        },
-        cartQuantity: quantity,
-        userId: req.user._id,
-        cartTotal: total,
-      });
+    // let productIndex = existingCart.products.findIndex((index) => {
+    //   return console.log("inside", index.productId) == product._id;
+    // });
 
-      return (
-        // cartUpdate.save(),
-        res.status(222).json(cartUpdate)
-      );
-    }
-
-    //IF the current product IS in cart then update cart quantity
-    const cartQtyUpdate = new Cart({
-      products: {
+    if (existingProductInCart) {
+      updatedProduct = existingProductInCart;
+      //UPDATE the product price total
+      updatedProduct.productTotal = existingProductInCart.productTotal + total;
+      //UPDATE the product qty
+      updatedProduct.quantity = existingProductInCart.quantity + quantity;
+      //UPDATE the product item in the products array
+      existingProductInCart = updatedProduct;
+      //UPDATE the cart qty
+      existingCart.cartQuantity = existingCart.cartQuantity + quantity;
+      //UPDATE the cart total
+      // existingCart.cartTotal = existingCart.cartTotal + total;
+      // console.log("inside", existingCart.cartTotal);
+    } else {
+      // if product does NOT EXIST in cart, CREATE new product in cart
+      existingCart.products.push({
         productId: product._id,
         productTotal: total,
         name: product.name,
         price,
         image: product.image,
         category: product.category,
-        quantity: existingCart.cartQuantity + quantity,
-      },
-      cartQuantity: quantity,
-      userId: req.user._id,
-      cartTotal: total,
-    });
-    return (
-      await cartQtyUpdate.save(), res.status(223).json(currentProductInCart)
+        quantity,
+      });
+      existingCart.cartQuantity = existingCart.cartQuantity + quantity;
+    }
+    //UPDATE the total for the cart
+
+    //get array of product prices
+    const productPrices = existingCart.products.map(
+      (product) => product.price * product.quantity
     );
+    console.log(productPrices);
+    //calculate the sum
+    existingCart.cartTotal = productPrices.reduce(
+      (accumulator, currentValue) => {
+        return accumulator + currentValue;
+      },
+      0
+    );
+    console.log(existingCart.cartTotal);
+    await existingCart.save();
+    return res.status(200).json(existingCart);
+
+    /////////////////////////////////////////////////////////////////////
+    // const currentProductInCart = existingCart.products.find((obj) => {
+    //   return obj.productId.toString() === product._id.toString();
+    // });
+
+    // //IF the current product is not in the cart
+    // if (!currentProductInCart) {
+    //   //then UPDATE cart with current product
+    //   // add current product to existing cart
+    //   existingCart.products.push({
+    //     productId: product._id,
+    //     productTotal: total,
+    //     name: product.name,
+    //     price,
+    //     image: product.image,
+    //     category: product.category,
+    //     quantity,
+    //   });
+    //   //UPDATE cart
+    //   existingCart.cartQuantity = existingCart.cartQuantity + quantity;
+    //   return existingCart.save(), res.status(222).json(existingCart);
+    // }
+
+    // const productPrices = existingCart.products.map((product) => product.price);
+    // existingCart.cartTotal = productPrices.reduce((accum, currValue) => {
+    //   return accum + currValue;
+    // });
+    // //IF the current product IS in cart then update cart quantity
+    // existingCart.cartQuantity = existingCart.cartQuantity + quantity;
+    // existingCart.cartTotal = existingCart.cartTotal + total;
+    // // & total
+    // console.log(productPrices);
+    // currentProductInCart.productTotal =
+    //   currentProductInCart.productTotal + total;
+    // currentProductInCart.quantity = currentProductInCart.quantity + quantity;
+    // existingCart.products;
+    // await existingCart.save();
+    // return res.status(223).json(productIndex);
   }
 
+  //if cart does NOT exist for user then CREATE new cart
   const newCart = new Cart({
     products: {
       productId: product._id,
@@ -77,74 +118,33 @@ router.post("/", async (req, res) => {
   });
   await newCart.save();
   res.status(224).json(newCart);
-
-  // // //Check if cart exists
-  // const cart = await Cart.findOne({ userId: req.user._id });
-  // if (cart) {
-  //   //Check if cart contains currentProduct
-  //   if (cart.products.includes(product._id)) {
-  //     //updates total items in cart
-  //     cart.quantity = cart.quantity + quantity;
-  //     await cart.save();
-  //     await cart.populate("products").execPopulate();
-  //   }
-  //   // const currentProductInCart = cart[product._id];
-  // }
-
-  // //   //If cart does not contain currentProduct
-  // //   if (!currentProductInCart) {
-  // //     //then update cart with currentProduct
-  // //     const cartUpdate = {
-  // //       ...cart,
-  // //       [product._id]: {
-  // //         count: currentProductInCart.count,
-  // //         total: total,
-  // //         product,
-  // //       },
-  // //     };
-  // //     return (
-  // //       "save cart and populate with cartUpdate",
-  // //       res.status(200).json(cartUpdate)
-  // //     );
-  // //   }
-  // //   //If currentProduct exists in cart then update Qty of product
-  // //   const cartQtyUpdate = {
-  // //     ...cart,
-  // //     [product._id]: {
-  // //       count: currentProductInCart.count + 1,
-  // //       product,
-  // //     },
-  // //   };
-  // //   return (
-  // //     "save cart and populate with cartQtyUpdate",
-  // //     res.status(200).json(cartQtyUpdate)
-  // //   );
-  // // } else {
-  // //   // If product does not exist in user cart then create new cart
-  // //   const newCart = {};
-  // // }
-  // // //if it does, check if product is a;ready in the cart
-  // // //if it is increase the quantity and total price of cart,
-  // // //save the cart
-  // // //populate the products for the cart
-  // // //send it back
-
-  // cart.products.push(product._id);
-  // await cart.save();
-  // await cart
-  //   .populate({ path: "products", select: "name price categoryId" })
-  //   .execPopulate();
-  // // console.log(cart);
-
-  // res.status(200).json(req.body);
-  // // res.status(200).json("we in the back");
 });
+
+//NEED TO FINISH PUT REQUEST
+
+// router.put("/:id", async (req, res) => {
+//   const { product } = req.body;
+//   const cart = await Cart.findOne({ userId: req.user._id, _id: req.params.id });
+
+//   if (cart) {
+//     //Find the product
+//     const currentProductInCart = existingCart.products.find((obj) => {
+//       return obj.productId.toString() === product._id.toString();
+//     });
+
+//     if (currentProductInCart.quantity === 1) {
+//       const updatedCart = existingCart.products.filter((obj) => {
+//         obj.productId === product._id;
+//       });
+//     }
+//   }
+// });
 
 //Get cart for current user
 router.get("/", async (req, res) => {
   try {
-    const cart = Cart.findOne({ userId: req.user._id });
-    res.status(200).json(cart);
+    const existingCart = await Cart.findOne({ userId: req.user._id });
+    res.status(200).json(existingCart);
   } catch (error) {
     res.status(400).json(error.message);
   }
@@ -153,13 +153,10 @@ router.get("/", async (req, res) => {
 //update cart
 router.put("/:id", async (req, res) => {
   try {
-    console.log("this is body", req.body);
-    console.log("this is id", req.params.id);
     const { product } = req.body;
     const { remove } = req.body;
-    console.log("this is product", product);
     const cart = await Cart.findById(req.params.id);
-    console.log("this is cart", cart);
+
     if (cart.products.includes(product._id) && !remove) {
       cart.quantity = cart.quantity + 1;
       cart.total = cart.quantity * cart.total;

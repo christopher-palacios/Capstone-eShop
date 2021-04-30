@@ -55,6 +55,10 @@ const cartSchema = new mongoose.Schema(
       type: Number,
       requred: true,
     },
+    isOpen: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamp: Date,

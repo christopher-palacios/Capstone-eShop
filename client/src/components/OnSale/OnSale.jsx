@@ -2,7 +2,7 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import React, { useEffect, useState, useContext } from "react";
 import "./OnSale.scss";
-import { AppContext } from "../AppContext/AppContext";
+// import { AppContext } from "../AppContext/AppContext";
 
 const baseUrl = "http://localhost:8080/api";
 
@@ -10,12 +10,12 @@ function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  const value = useContext(AppContext);
+  // const value = useContext(AppContext);
   // console.log(value);
   //Get from session storage
   const token = sessionStorage.getItem("token");
-  const user = sessionStorage.getItem("user");
-  const userId = sessionStorage.getItem("userId");
+  // const user = sessionStorage.getItem("user");
+  // const userId = sessionStorage.getItem("userId");
 
   const handleChange = (e) => {
     setQuantity(e.target.value);
@@ -27,7 +27,8 @@ function OnSale(props) {
     // console.log(userId);
     const price = product.price.slice(1, 9);
     const noCommaPrice = price.split(",").join("");
-    // console.log(price);
+    console.log(price);
+    console.log(noCommaPrice);
     axios
       .post(
         `${baseUrl}/cart`,
@@ -42,7 +43,7 @@ function OnSale(props) {
           },
         }
       )
-      .then((res) => console.log("from the back", res))
+      .then((res) => console.log("from the back", res.status, res.data))
       .catch((err) => console.log(err));
   };
 
@@ -52,6 +53,7 @@ function OnSale(props) {
       const selectedProduct = res.data;
       setSelectedProduct(selectedProduct);
     });
+    axios.get();
   }, [props.match.params]);
   // console.log(token);
   // console.log(user);

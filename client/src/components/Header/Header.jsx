@@ -38,7 +38,7 @@ function Header() {
             <NavDropdown.Item className="nav__link" href="/signup">
               Sign Up
             </NavDropdown.Item>
-            <NavDropdown.Item className="nav__link" href="/shop/categories">
+            <NavDropdown.Item className="nav__link" href="/cart">
               Cart #
             </NavDropdown.Item>
             <NavDropdown.Divider />
