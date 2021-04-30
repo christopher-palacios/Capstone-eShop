@@ -25,54 +25,58 @@ export function ShoppingCart(props) {
     //   axios.put(`/cart/${cartId}`);
   }, [token]);
 
-  const increaseQty = async (product, quantity) => {
-    console.log("add");
-    console.log(product, quantity);
-    // try {
-    //   axios
-    //     .post(
-    //       `${baseUrl}/cart`,
-    //       { product, quantity },
-    //       {
-    //         headers: {
-    //           authorization: `Bearer ${token}`,
-    //         },
-    //       }
-    //     )
-    //     .then((res) => console.log(res.data))
-    //     .catch((err) => console.log(err.message));
-    // } catch (error) {
-    //   console.log("error", error.message);
-    // }
+  const increaseQty = async (product, cartId) => {
+    axios
+      .put(
+        `${baseUrl}/cart/increase/${cartId}`,
+        { product, cartId },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => setCart(res.data))
+      .catch((err) => console.log(err.message));
   };
 
   const decreaseQty = async (product, cartId) => {
-    console.log("subtract");
-
-    try {
-      axios
-        .put(
-          `${baseUrl}/cart/${cartId}`,
-          { product },
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((res) => console.log("res", res.data))
-        .catch((err) => console.log(err.message));
-    } catch (error) {
-      console.log("error", error.message);
-    }
+    await axios
+      .put(
+        `${baseUrl}/cart/decrease/${cartId}`,
+        { product },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => setCart(res.data))
+      .catch((err) => console.log(err.message));
   };
 
+  const deleteProduct = async (product, cartId) => {
+    console.log(cartId);
+    ///////// CHECK CART ID AND SEE WHY ITS UNDEFINED!
+    // await axios
+    //   .put(
+    //     `${baseUrl}/cart/delete/${cartId}`,
+    //     { product, cartId },
+    //     {
+    //       headers: {
+    //         authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => console.log(res.data))
+    //   .catch((err) => console.log(err.message));
+  };
   // console.log(cart);
   return (
     <section className="cart">
       <div className="cart__list">
         <div className="cart__list--title">
-          {!cart ? (
+          {!cart && !cart ? (
             <div>
               <h1>Your cart is empty, continue shopping</h1>
             </div>
@@ -110,16 +114,28 @@ export function ShoppingCart(props) {
                     -
                   </div>
                   {`Qty: ${product.quantity}`}
-                  <div onClick={increaseQty}>+</div>
+                  <div
+                    onClick={() => {
+                      increaseQty({ ...product }, cart._id);
+                    }}
+                  >
+                    +
+                  </div>
                 </ListGroupItem>
 
-                <ListGroupItem>Remove</ListGroupItem>
+                <ListGroupItem
+                  onClick={() => {
+                    deleteProduct({ ...product }, cart._Id);
+                  }}
+                >
+                  Remove
+                </ListGroupItem>
               </ListGroup>
             </Card>
           );
         })}
       </div>
-      {!cart ? (
+      {!cart && !cart ? (
         <div />
       ) : (
         <div className="cart__footer">
