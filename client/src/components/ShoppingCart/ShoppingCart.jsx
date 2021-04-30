@@ -10,6 +10,7 @@ export function ShoppingCart(props) {
   const [cart, setCart] = useState();
   const token = sessionStorage.getItem("token");
 
+  console.log("CART", cart);
   useEffect(() => {
     // const token = sessionStorage.getItem("token");
     //   // Get user cart
@@ -57,19 +58,23 @@ export function ShoppingCart(props) {
 
   const deleteProduct = async (product, cartId) => {
     console.log(cartId);
+    console.log("PRODUCT", product);
     ///////// CHECK CART ID AND SEE WHY ITS UNDEFINED!
-    // await axios
-    //   .put(
-    //     `${baseUrl}/cart/delete/${cartId}`,
-    //     { product, cartId },
-    //     {
-    //       headers: {
-    //         authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err.message));
+    await axios
+      .put(
+        `${baseUrl}/cart/delete/${cartId}`,
+        { product, cartId },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setCart(res.data);
+      })
+      .catch((err) => console.log(err.message));
   };
   // console.log(cart);
   return (
@@ -125,7 +130,7 @@ export function ShoppingCart(props) {
 
                 <ListGroupItem
                   onClick={() => {
-                    deleteProduct({ ...product }, cart._Id);
+                    deleteProduct({ ...product }, cart._id);
                   }}
                 >
                   Remove
