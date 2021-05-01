@@ -110,7 +110,7 @@ router.put("/increase/:id", async (req, res) => {
     const cartQuantities = existingCart.products.map(
       (product) => product.quantity
     );
-    console.log("+q", cartQuantities);
+
     //calculate cart quantity with reduce method to iterate through product quantities and add them together
     existingCart.cartQuantity = cartQuantities.reduce(
       (accumulator, currentValue) => {
@@ -211,21 +211,16 @@ router.put("/decrease/:id", async (req, res) => {
       },
       0
     );
-    ////////////////////////////// looookkkk herreeeee
     ///UPDATE cart total
     const productPrices = existingCart.products.map(
       (product) => product.productTotal
     );
-    console.log("-", productPrices);
-
     existingCart.cartTotal = productPrices.reduce(
       (accumulator, currentValue) => {
         return accumulator + currentValue;
       },
       0
     );
-    // console.log(currentProductInCart);
-    // console.log(product.price);
     await existingCart.save();
     return res.status(200).json(existingCart);
   }
@@ -280,28 +275,5 @@ router.get("/", async (req, res) => {
     res.status(400).json(error.message);
   }
 });
-
-//update cart
-// router.put("/:id", async (req, res) => {
-//   try {
-//     const { product } = req.body;
-//     const { remove } = req.body;
-//     const cart = await Cart.findById(req.params.id);
-
-//     if (cart.products.includes(product._id) && !remove) {
-//       cart.quantity = cart.quantity + 1;
-//       cart.total = cart.quantity * cart.total;
-//       await cart.save();
-//       res.status(200).json(cart);
-//     }
-//     if (remove) {
-//       const updatedCart = cart.products.filter((item) => item !== product._id);
-//       await cart.save();
-//     }
-//     res.status(200).json(cart);
-//   } catch (error) {
-//     res.status(400).json(error.message);
-//   }
-// });
 
 module.exports = router;

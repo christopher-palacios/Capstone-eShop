@@ -35,7 +35,7 @@ function LogInModal(props) {
         //navigate user to home page
         // this.props.history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
   };
 
   return (

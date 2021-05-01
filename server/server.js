@@ -3,13 +3,19 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 require("./db/config");
 const express = require("express");
 const app = express();
-const openRoutes = require("./routes/open");
-const userRoutes = require("./routes/secure/users");
 const passport = require("./middleware/authentication");
-
 const cors = require("cors");
 const PORT = 8080;
 
+//open routes
+const openRoutes = require("./routes/open");
+
+//authenticated routes
+const secureUserRoutes = require("./routes/secure/users");
+const secureCartRoutes = require("./routes/secure/carts");
+const secureOrderRoutes = require("./routes/secure/orders");
+
+//resolve cors
 app.use(cors());
 //Middleware to interact with body of requst
 app.use(express.json());
@@ -18,10 +24,10 @@ app.use(express.json());
 app.use("/api/", openRoutes);
 
 //Passport middleware, any routes under this MUST have the jwt bearer token in header
-const secureCartRoutes = require("./routes/secure/carts");
 app.use("/api/*", passport.authenticate("jwt", { session: false }));
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", secureUserRoutes);
 app.use("/api/cart", secureCartRoutes);
+app.use("/api/order", secureOrderRoutes);
 
 app.listen(PORT, () => console.log(`Express is running on ${PORT}`));

@@ -15,9 +15,9 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     // submit it to backend to receive token
-    e.preventDefault();
+    // e.preventDefault();
     axios
-      .post("http://localhost:8080/api/users", this.state.formData)
+      .post("http://localhost:8080/api/users", formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;
@@ -28,7 +28,6 @@ function SignUp() {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     // <div>
     //   <h1>Login</h1>
@@ -47,6 +46,20 @@ function SignUp() {
         </div>
         <form className="signUp__form" onSubmit={handleSubmit}>
           <div className="signUp__form--card">
+            <label className="signUp__form--label">First Name</label>
+            <input
+              className="signUp__form--input firstName"
+              onChange={handleChange}
+              type="firstName"
+              name="firstName"
+            />
+            <label className="signUp__form--label">Last Name</label>
+            <input
+              className="signUp__form--input lastName"
+              onChange={handleChange}
+              type="lastName"
+              name="lastName"
+            />
             <label className="signUp__form--label">Email</label>
             <input
               className="signUp__form--input email"
@@ -77,6 +90,5 @@ function SignUp() {
       </div>
     </section>
   );
-  // }
 }
 export default SignUp;

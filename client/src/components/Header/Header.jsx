@@ -21,9 +21,9 @@ function Header() {
 
   return (
     <Navbar className="nav__color" variant="dark" expand="md">
-      <Navbar.Brand className="nav__brand" href="/">
+      {/* <Navbar.Brand className="nav__brand" href="/">
         eShop
-      </Navbar.Brand>
+      </Navbar.Brand> */}
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -51,7 +51,9 @@ function Header() {
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
-
+      <Navbar.Brand className="nav__brand" href="/">
+        eShop
+      </Navbar.Brand>
       <LoginModal
         onHide={handleModalClose}
         show={modalShow}

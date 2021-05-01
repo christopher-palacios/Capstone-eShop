@@ -7,24 +7,30 @@ const Product = require("../../db/models/product");
 
 // Create a user
 router.post("/users", async (req, res) => {
+  console.log(req.body);
   //Create user
   const newUser = await new User({ ...req.body });
+  console.log(newUser);
   //Save user to db
   await newUser.save();
   //Generate token for user
   const token = await newUser.generateAuthToken();
-  //Send back the user info and token
+  // Send back the user info and token
   res.status(200).json({ user: newUser, token });
 });
 
 // Login a user
 router.post("/users/login", async (req, res) => {
-  const { email, password } = req.body;
-  console.log(req.body);
-  const user = await User.findByCredentials(email, password);
-  const token = await user.generateAuthToken();
-  console.log("we have it", user);
-  res.status(200).json({ user, token });
+  try {
+    const { email, password } = req.body;
+    console.log(req.body);
+    const user = await User.findByCredentials(email, password);
+    const token = await user.generateAuthToken();
+    console.log("we have it", user);
+    res.status(200).json({ user, token });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 // Get current user

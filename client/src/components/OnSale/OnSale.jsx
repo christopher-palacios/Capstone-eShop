@@ -1,34 +1,28 @@
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./OnSale.scss";
-// import { AppContext } from "../AppContext/AppContext";
 
 const baseUrl = "http://localhost:8080/api";
 
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const history = useHistory();
 
-  // const value = useContext(AppContext);
-  // console.log(value);
   //Get from session storage
   const token = sessionStorage.getItem("token");
-  // const user = sessionStorage.getItem("user");
+  const user = sessionStorage.getItem("user");
   // const userId = sessionStorage.getItem("userId");
-
+  console.log(user);
   const handleChange = (e) => {
     setQuantity(e.target.value);
   };
 
   const handleSubmit = (product) => {
-    // console.log(product);
-    // console.log(quantity);
-    // console.log(userId);
     const price = product.price.slice(1, 9);
     const noCommaPrice = price.split(",").join("");
-    console.log(price);
-    console.log(noCommaPrice);
     axios
       .post(
         `${baseUrl}/cart`,
@@ -43,8 +37,13 @@ function OnSale(props) {
           },
         }
       )
-      .then((res) => console.log("from the back", res.status, res.data))
+      .then((res) =>
+        alert(
+          `Great choice ${user}! Your selection has been added to your cart`
+        )
+      )
       .catch((err) => console.log(err));
+    history.push("/cart");
   };
 
   useEffect(() => {
@@ -55,8 +54,7 @@ function OnSale(props) {
     });
     axios.get();
   }, [props.match.params]);
-  // console.log(token);
-  // console.log(user);
+
   return (
     <>
       <div className="product">

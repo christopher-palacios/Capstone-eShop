@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Card, Badge, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import "./ShoppingCart.scss";
 
 const baseUrl = "http://localhost:8080/api";
@@ -10,10 +10,8 @@ export function ShoppingCart(props) {
   const [cart, setCart] = useState();
   const token = sessionStorage.getItem("token");
 
-  console.log("CART", cart);
+  //didmount & didupdate
   useEffect(() => {
-    // const token = sessionStorage.getItem("token");
-    //   // Get user cart
     axios
       .get(`${baseUrl}/cart`, {
         headers: {
@@ -21,11 +19,10 @@ export function ShoppingCart(props) {
         },
       })
       .then((res) => setCart(res.data))
-      .catch((err) => console.log(err.message));
-    //   //delete selected product from user cart
-    //   axios.put(`/cart/${cartId}`);
+      .catch((err) => alert(err.message));
   }, [token]);
 
+  //INCREASE product quantity in cart
   const increaseQty = async (product, cartId) => {
     axios
       .put(
@@ -38,9 +35,10 @@ export function ShoppingCart(props) {
         }
       )
       .then((res) => setCart(res.data))
-      .catch((err) => console.log(err.message));
+      .catch((err) => alert(err.message));
   };
 
+  //DECREASE product quantity in cart
   const decreaseQty = async (product, cartId) => {
     await axios
       .put(
@@ -53,13 +51,13 @@ export function ShoppingCart(props) {
         }
       )
       .then((res) => setCart(res.data))
-      .catch((err) => console.log(err.message));
+      .catch((err) => alert(err.message));
   };
 
+  //DELETE selected product from cart
   const deleteProduct = async (product, cartId) => {
     console.log(cartId);
     console.log("PRODUCT", product);
-    ///////// CHECK CART ID AND SEE WHY ITS UNDEFINED!
     await axios
       .put(
         `${baseUrl}/cart/delete/${cartId}`,
@@ -70,13 +68,10 @@ export function ShoppingCart(props) {
           },
         }
       )
-      .then((res) => {
-        console.log(res.data);
-        setCart(res.data);
-      })
-      .catch((err) => console.log(err.message));
+      .then((res) => setCart(res.data))
+      .catch((err) => alert(err.message));
   };
-  // console.log(cart);
+  console.log(cart);
   return (
     <section className="cart">
       <div className="cart__list">
@@ -89,7 +84,7 @@ export function ShoppingCart(props) {
             <h1>Items in your cart</h1>
           )}
         </div>
-        {cart?.products.map((product) => {
+        {cart?.products?.map((product) => {
           return (
             //  ADJUST FONT SIZES FOR BREAKPOINTS
             <Card key={product.productId} className="cart__card">
@@ -102,7 +97,7 @@ export function ShoppingCart(props) {
                 <Link to={`/product/${product.productId}`}>
                   <Card.Title>{product.name}</Card.Title>
                 </Link>
-                <Link to="/categories">
+                <Link to={`/categories`}>
                   <Card.Text>{`${product.category}`}</Card.Text>
                 </Link>
               </Card.Body>
@@ -129,6 +124,7 @@ export function ShoppingCart(props) {
                 </ListGroupItem>
 
                 <ListGroupItem
+                  className="cart__info--remo"
                   onClick={() => {
                     deleteProduct({ ...product }, cart._id);
                   }}

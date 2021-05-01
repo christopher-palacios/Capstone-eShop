@@ -39,6 +39,9 @@
   &__info {
     justify-content: center;
     outline: none;
+    &--remo {
+      border: 1px solid $red;
+    }
   }
   &__card {
     margin: 16px 0;
