@@ -55,7 +55,8 @@ function ItemList(props) {
     //   })
     //   .catch((err) => console.log(err));
   }, [props.match.params]);
-
+  console.log(selectedCategory);
+  console.log(categoryList);
   return (
     <section>
       <div className="sub-nav">

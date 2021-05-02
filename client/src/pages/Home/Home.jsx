@@ -1,17 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import wheelie from "../../assets/images/wheelie.jpeg";
 import { Card, CardDeck, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ControlledCarousel from "../../components/Carousel/Carousel";
 import "./Home.scss";
 import { AppContext } from "../../AppContext/AppContext";
+import axios from "axios";
+
+const baseUrl = "http://localhost:8080/api";
 
 function Home() {
+  const [random, setRandom] = useState();
   const { categoryList } = useContext(AppContext);
   console.log(categoryList);
 
-  //first get random category
-  //
+  //first get random category id
+
+  //then use category id to get product list &
+  //save random product list to state with useEffect hook
+  useEffect(() => {}, []);
+
+  //then map through product list and get 4 random products
+  console.log(random);
   return (
     <section className="home">
       {/* <div className="home__hero">
@@ -39,65 +49,6 @@ function Home() {
           })}
         </Card.Footer>
       </Card>
-      <Container>
-        <CardDeck>
-          <Card>
-            <Card.Img variant="top" src="holder.js/100px160" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </Card.Footer>
-          </Card>
-          <Card>
-            <Card.Img variant="top" src="holder.js/100px160" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This card has supporting text below as a natural lead-in to
-                additional content.{" "}
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </Card.Footer>
-          </Card>
-          <Card>
-            <Card.Img variant="top" src="holder.js/100px160" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer content
-                than the first to show that equal height action.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </Card.Footer>
-          </Card>
-          <Card>
-            <Card.Img variant="top" src="holder.js/100px160" />
-            <Card.Body>
-              <Card.Title>Card title</Card.Title>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer content
-                than the first to show that equal height action.
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </Card.Footer>
-          </Card>
-        </CardDeck>
-      </Container>
     </section>
   );
 }

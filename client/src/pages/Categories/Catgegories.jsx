@@ -50,7 +50,7 @@ function Catgegories() {
                       </Card.Body>
                       <Card.Footer>
                         <small className="text-muted">
-                          Last updated 3 mins ago
+                          {`Click here for more ${cat.name} bikes`}
                         </small>
                       </Card.Footer>
                     </Card>

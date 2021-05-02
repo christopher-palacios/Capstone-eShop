@@ -11,12 +11,12 @@ const baseUrl = "http://localhost:8080/api";
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const { setCart } = useContext(AppContext);
+  const { setCart, token, user } = useContext(AppContext);
   const history = useHistory();
 
   //Get from session storage
-  const token = sessionStorage.getItem("token");
-  const user = sessionStorage.getItem("user");
+  // const token = sessionStorage.getItem("token");
+  // const user = sessionStorage.getItem("user");
   // const userId = sessionStorage.getItem("userId");
   console.log(user);
   const handleChange = (e) => {

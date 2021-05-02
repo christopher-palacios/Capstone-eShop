@@ -7,7 +7,6 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 function Header() {
   const [logInModalShow, setLogInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
-
   const [user, setUser] = useState("Guest");
 
   useEffect(() => {
@@ -39,6 +38,7 @@ function Header() {
     setLogInModalShow(true);
   };
 
+  //Sign user out by removing token and user from session storage
   const handleSignOut = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user");

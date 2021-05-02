@@ -29,6 +29,7 @@ export const ContextProvider = ({ children }) => {
       .catch((err) => swal(err.message));
   };
 
+  //Get list of categories
   const getCategoryList = async () => {
     axios
       .get(`${baseUrl}/categories`)
