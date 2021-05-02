@@ -1,0 +1,84 @@
+@use '../../partials//partials' as *;
+
+.sub-nav {
+  background-color: $grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 16px 16px 4px 16px;
+  @include tablet {
+    margin: 32px 40px 16px 40px;
+  }
+  &__links {
+    box-sizing: border-box;
+    padding: 8px;
+    justify-content: center;
+    @include tablet {
+      // justify-content: space-evenly;
+    }
+    &--tag {
+      color: $black;
+      padding: 0.5rem;
+      font-size: 16px;
+      &:hover {
+        color: $blue;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      &:focus {
+        color: $red;
+      }
+    }
+  }
+  &__form {
+    display: flex;
+    &--input {
+      width: 170px;
+      border: 1px solid $black;
+      &:focus {
+        border: 1px solid $red;
+        outline: none;
+      }
+      // @include tablet {
+      //   width: 4000px;
+      //   outline: none;
+
+      // }
+    }
+    &--button {
+      margin-left: 8px;
+      background-color: $white;
+    }
+  }
+}
+.shop {
+  &__card {
+    display: grid;
+    justify-content: center;
+    // width: 300px;
+    margin: 0 auto;
+    // &--img {
+    //   // object-fit: cover;
+    // }
+    &--top {
+      justify-content: space-between;
+    }
+    &--indv {
+      box-shadow: 0px 0px 16px -8px;
+      margin: 16px;
+      @include tablet {
+        // align-self: center;
+        margin: 24px;
+        // padding-top: 30px;
+      }
+    }
+    @include tablet {
+      grid-template-columns: repeat(3, 33%);
+
+      margin: 0 24px;
+    }
+    @include desktop {
+      grid-template-columns: repeat(4, 25%);
+    }
+  }
+}

@@ -17,15 +17,16 @@ const secureOrderRoutes = require("./routes/secure/orders");
 
 //resolve cors
 app.use(cors());
+
 //Middleware to interact with body of requst
 app.use(express.json());
 
-//Route Middleware
+//Open routes
 app.use("/api/", openRoutes);
 
 //Passport middleware, any routes under this MUST have the jwt bearer token in header
 app.use("/api/*", passport.authenticate("jwt", { session: false }));
-
+//Authenticated routes
 app.use("/api/users", secureUserRoutes);
 app.use("/api/cart", secureCartRoutes);
 app.use("/api/order", secureOrderRoutes);

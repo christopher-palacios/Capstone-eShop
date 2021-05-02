@@ -1,6 +1,19 @@
-.one {
-  background-image: url("../assets/images/pexels-jan-kopřiva-3281020.jpg");
-  background-position: center;
-  background-size: cover;
-  width: 100%;
+@use '../../partials/partials' as *;
+.hero {
+  &__img {
+    height: 650px;
+    object-fit: cover;
+    object-position: center;
+    background-color: $grey;
+    // border: 10px solid red;
+  }
+  &__cap {
+    background-color: rgb(227, 228, 219, 0.8);
+    border: 1px solid $darkGrey;
+    border-radius: 5px;
+    &--title {
+      font-size: 62px;
+      color: $blue;
+    }
+  }
 }

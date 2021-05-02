@@ -90,32 +90,12 @@ module.exports = [
     category_url: "https://www.citygrounds.com/collections/electric-bikes",
   },
   {
-    name: "NCM Moscow Plus Electric Bike",
-    price: "$1,679.00",
-    image:
-      "https://cdn.shopify.com/s/files/1/1109/6048/products/media_b68f8ff1-14b9-426c-ba14-4de19757f3f3_large.jpg?v=1617145488",
-    image_url:
-      "https://www.citygrounds.com/collections/electric-bikes/products/10eb-lc1005",
-    category: "Electric Bikes",
-    category_url: "https://www.citygrounds.com/collections/electric-bikes",
-  },
-  {
     name: "NCM Aspen Plus Fat Tire Electric Bike",
     price: "$1,779.00",
     image:
       "https://cdn.shopify.com/s/files/1/1109/6048/products/media_2463c09a-47aa-4200-85d4-238904d8bd1c_large.jpg?v=1617145500",
     image_url:
       "https://www.citygrounds.com/collections/electric-bikes/products/10eb-lc1009",
-    category: "Electric Bikes",
-    category_url: "https://www.citygrounds.com/collections/electric-bikes",
-  },
-  {
-    name: "NCM Aspen Fat Tire Electric Bike",
-    price: "$1,149.00",
-    image:
-      "https://cdn.shopify.com/s/files/1/1109/6048/products/media_affac14e-0970-47ca-9abb-b56b57ad9cb8_large.jpg?v=1617145494",
-    image_url:
-      "https://www.citygrounds.com/collections/electric-bikes/products/10eb-lc1007",
     category: "Electric Bikes",
     category_url: "https://www.citygrounds.com/collections/electric-bikes",
   },

@@ -14,7 +14,8 @@
     "mongoose": "^5.12.3",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "stripe": "^8.144.0"
+    "stripe": "^8.144.0",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

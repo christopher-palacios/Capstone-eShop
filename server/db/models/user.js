@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const validator = require("validator");
 
 //Define user requirements upon sign up
 const userSchema = new Schema({
@@ -23,12 +24,28 @@ const userSchema = new Schema({
     trim: true,
     lowercase: true,
     unique: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("email is invalid");
+      }
+    },
   },
   password: {
     type: String,
     required: true,
     trim: true,
+    validate(value) {
+      if (value.length < 4) {
+        throw new Error("Password must be greater than 4 characters");
+      }
+    },
   },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+    },
+  ],
 });
 
 //[1, 2, 3, 4, 5].forEach() = example of instance method

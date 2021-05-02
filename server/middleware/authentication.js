@@ -3,18 +3,9 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("../db/models/user");
 
-// Specify some verification options
 const jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 jwtOptions.secretOrKey = process.env.JWT_SECRET;
-
-// Same as above
-// let jwtOptions = {
-//   jwtFromRequest: (req) => {
-//     return req.cookies?.jwt || ExtractJwt.fromAuthHeaderAsBearerToken();
-//   },
-//   secretOrKey: process.env.JWT_SECRET,
-// };
 
 passport.use(
   new JwtStrategy(jwtOptions, async (jwtPayLoad, done) => {

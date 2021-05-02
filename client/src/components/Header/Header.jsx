@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import LoginModal from "../LoginModal/LogInModal";
+import SignUpModal from "../SignUpModal/SignUpModal";
 import "./Header.scss";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 function Header() {
-  const [modalShow, setModalShow] = useState(false);
+  const [logInModalShow, setLogInModalShow] = useState(false);
+  const [signUpModalShow, setSignUpModalShow] = useState(false);
+
   const [user, setUser] = useState("Guest");
 
   useEffect(() => {
@@ -12,35 +15,71 @@ function Header() {
     setUser(user);
   }, []);
 
-  const handleModalOpen = () => {
-    setModalShow(true);
+  //LogIn Modal Switches
+  const handleLoginModalOpen = () => {
+    setLogInModalShow(true);
   };
-  const handleModalClose = () => {
-    setModalShow(false);
+  const handleLoginModalClose = () => {
+    setLogInModalShow(false);
+  };
+  const handleLoginModalSwitch = () => {
+    setLogInModalShow(false);
+    setSignUpModalShow(true);
+  };
+
+  //SignUp Modal Show
+  const handleSignupModalOpen = () => {
+    setSignUpModalShow(true);
+  };
+  const handleSignupModalClose = () => {
+    setSignUpModalShow(false);
+  };
+  const handleSignupModalSwitch = () => {
+    setSignUpModalShow(false);
+    setLogInModalShow(true);
+  };
+
+  const handleSignOut = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
   };
 
   return (
-    <Navbar className="nav__color" variant="dark" expand="md">
+    <Navbar className="nav__color" variant="dark" expand="lg">
       {/* <Navbar.Brand className="nav__brand" href="/">
         eShop
       </Navbar.Brand> */}
+
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link onClick={handleModalOpen}>
-            {!user ? "Guest" : user}
-          </Nav.Link>
-          <NavDropdown title="Shop" id="basic-nav-dropdown">
+          {!user ? (
+            <Nav.Link onClick={handleLoginModalOpen}>Log In</Nav.Link>
+          ) : (
+            <Nav.Link disabled>{user}</Nav.Link>
+          )}
+
+          <NavDropdown title="Shop" id="basic-nav-dropdown ">
             <NavDropdown.Item className="nav__link" href="/categories">
               Categories
             </NavDropdown.Item>
-            <NavDropdown.Item className="nav__link" href="/signup">
-              Sign Up
-            </NavDropdown.Item>
             <NavDropdown.Item className="nav__link" href="/cart">
-              Cart #
+              Cart
             </NavDropdown.Item>
+            {!user ? (
+              <NavDropdown.Item
+                className="nav__link"
+                onClick={handleSignupModalOpen}
+              >
+                Sign Up
+              </NavDropdown.Item>
+            ) : (
+              <NavDropdown.Item className="nav__link" onClick={handleSignOut}>
+                Sign Out
+              </NavDropdown.Item>
+            )}
+
             <NavDropdown.Divider />
             <NavDropdown.Item className="nav__link" href="#return-policy">
               Return Policy
@@ -55,9 +94,17 @@ function Header() {
         eShop
       </Navbar.Brand>
       <LoginModal
-        onHide={handleModalClose}
-        show={modalShow}
-        close={handleModalClose}
+        onHide={handleLoginModalClose}
+        show={logInModalShow}
+        loginClose={handleLoginModalClose}
+        loginSwitch={handleLoginModalSwitch}
+      />
+      <SignUpModal
+        onHide={handleSignupModalClose}
+        show={signUpModalShow}
+        showLogin={logInModalShow}
+        signupClose={handleSignupModalClose}
+        signupSwitch={handleSignupModalSwitch}
       />
     </Navbar>
   );

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import "./Carousel.scss";
 import { Carousel } from "react-bootstrap";
-import bmx from "../../assets/images/pexels-jan-kopřiva-3281020.jpg";
+import bmx from "../../assets/images/rideBMX.jpg";
 import fixie from "../../assets/images/beachFixie.jpg";
-import offRoad from "../../assets/images/marek-piwnicki-1zv1p3jvDBo-unsplash.jpg";
+import offRoad from "../../assets/images/offroad.jpg";
 
 function ControlledCarousel() {
   const [index, setIndex] = useState(0);
@@ -12,30 +13,42 @@ function ControlledCarousel() {
   };
 
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <Carousel className="hero" activeIndex={index} onSelect={handleSelect}>
       <Carousel.Item>
-        <img className="d-block w-100" src={bmx} alt="First slide" />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <img className="d-block w-100 hero__img" src={bmx} alt="First slide" />
+        <Carousel.Caption className="hero__cap">
+          <h1 className="hero__cap--title">BMX Bikes</h1>
+          <h3 className="hero__cap--text">
+            Browse our entire range of BMX bikes
+          </h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={fixie} alt="Second slide" />
+        <img
+          className="d-block w-100 hero__img"
+          src={fixie}
+          alt="Second slide"
+        />
 
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <Carousel.Caption className="hero__cap">
+          <h1 className="hero__cap--title">Fixie Bikes</h1>
+          <h3 className="hero__cap--text">
+            The best selection of Fixed gear bikes on the web
+          </h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img className="d-block w-100" src={offRoad} alt="Third slide" />
+        <img
+          className="d-block w-100 hero__img"
+          src={offRoad}
+          alt="Third slide"
+        />
 
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+        <Carousel.Caption className="hero__cap">
+          <h1 className="hero__cap--title">Off Road Bikes</h1>
+          <h3 className="hero__cap--text">
+            Hit the trails on an Off Road bike
+          </h3>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

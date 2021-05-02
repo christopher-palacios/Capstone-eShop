@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
-//Get the current user ifo
-
+//Get the current user info
 router.get("/current", async (req, res) => {
   try {
     res.status(200).json(req.user);

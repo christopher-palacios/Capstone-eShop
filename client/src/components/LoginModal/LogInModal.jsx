@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
+import swal from "sweetalert";
 import axios from "axios";
 import "./LoginModal.scss";
 
@@ -9,7 +10,6 @@ function LogInModal(props) {
 
   const handleChange = (e) => {
     //get form data and set it to state
-    console.log(e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -21,35 +21,27 @@ function LogInModal(props) {
       .then((res) => {
         //get token from response
         const token = res.data.token;
-        //get user from response
-        const { firstName, lastName, _id } = res.data.user;
-        console.log(res.data.user);
-        console.log(_id);
-        const user = firstName + " " + lastName;
+        //get user info from response
+        const { firstName, _id } = res.data.user;
+        const user = firstName;
         //save token in session storage
         sessionStorage.setItem("token", token);
         //save user in session storage
         sessionStorage.setItem("user", user);
         //save user id in session storage
         sessionStorage.setItem("userId", _id);
-        //navigate user to home page
-        // this.props.history.push("/");
       })
-      .catch((err) => alert(err.message));
+      .catch((err) =>
+        swal({ text: "Check your email/password and try again" })
+      );
   };
 
   return (
-    <Modal
-      {...props}
-      className="login"
-      size="lg"
-      // aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal {...props} className="login" size="lg" centered>
       <div className="login__card">
         <div className="login__welcome">
           <h1 className="login__welcome--title">Log In</h1>
-          <button className="login__welcome--close" onClick={props.close}>
+          <button className="login__welcome--close" onClick={props.loginClose}>
             X
           </button>
         </div>
@@ -69,20 +61,20 @@ function LogInModal(props) {
               type="password"
               name="password"
             />
-            <button className="login__form--button" onClick={props.close}>
+            <button className="login__form--button" onClick={props.loginClose}>
               Login
             </button>
           </div>
         </form>
-        <h5 onClick={props.close} className="login__redirect">
+        <h5 className="login__redirect">
           Not a member?
-          <Link to="/signup"> Sign Up </Link>
+          <Link onClick={props.loginSwitch} to="">
+            {" "}
+            Sign Up{" "}
+          </Link>
           here
         </h5>
       </div>
-      {/* <Modal.Footer>
-          <Button onClick={props.close}>Close</Button>
-        </Modal.Footer> */}
     </Modal>
   );
   // }

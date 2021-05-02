@@ -1,0 +1,21 @@
+.home {
+  // margin: 40px 0;
+  &__hero {
+    display: flex;
+    justify-content: center;
+    &--image {
+      object-fit: contain;
+    }
+  }
+  &__hero {
+    height: 50vh;
+  }
+
+  &__feat {
+    margin: 28px 0;
+    &--foot {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+}

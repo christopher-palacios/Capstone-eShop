@@ -120,7 +120,6 @@ router.put("/increase/:id", async (req, res) => {
     );
     //Get array of product prices in cart
     const productPrices = existingCart.products.map((obj) => obj.productTotal);
-    console.log("+p", productPrices);
 
     //Calculate cart total with reduce method to iterate through product prices and add them together
     existingCart.cartTotal = productPrices.reduce(
@@ -129,8 +128,7 @@ router.put("/increase/:id", async (req, res) => {
       },
       0
     );
-    console.log("pp", existingCart.cartTotal);
-    console.log(existingCart.cartTotal);
+
     await existingCart.save();
     return res.status(200).json(existingCart);
   }
@@ -151,10 +149,9 @@ router.put("/decrease/:id", async (req, res) => {
     let currentProductInCart = existingCart.products.find((obj) => {
       return obj._id.toString() === product._id.toString();
     });
-    console.log("CURRENT ITEM IN CART", currentProductInCart);
+
     //IF the current product quantity is equal to 1 then..
     if (currentProductInCart.quantity === 1) {
-      console.log(" === 1");
       //Filter the product by id and return new array without current product
       const updatedProducts = existingCart.products.filter((obj) => {
         return obj._id !== currentProductInCart._id;
@@ -238,24 +235,23 @@ router.put("/delete/:id", async (req, res) => {
   existingCart.products = existingCart.products.filter(
     (item) => item._id.toString() !== product._id.toString()
   );
-  console.log(existingCart.products);
+
   ///UPDATE cart total
   //Get array of product prices
   const productPrices = existingCart.products.map(
     (product) => product.productTotal
   );
-  console.log(productPrices);
+
   // //Calculate cart total  with reduce method
   existingCart.cartTotal = productPrices.reduce((accumulator, currentValue) => {
     return accumulator + currentValue;
   }, 0);
 
-  console.log(existingCart.cartTotal);
   // //UPDATE cart quantity
   const cartQuantities = existingCart.products.map(
     (product) => product.quantity
   );
-  console.log(cartQuantities);
+
   existingCart.cartQuantity = cartQuantities.reduce(
     (accumulator, currentValue) => {
       return accumulator + currentValue;
@@ -269,7 +265,10 @@ router.put("/delete/:id", async (req, res) => {
 //Get cart for current user
 router.get("/", async (req, res) => {
   try {
-    const existingCart = await Cart.findOne({ userId: req.user._id });
+    const existingCart = await Cart.findOne({
+      userId: req.user._id,
+      isOpen: true,
+    });
     res.status(200).json(existingCart);
   } catch (error) {
     res.status(400).json(error.message);
