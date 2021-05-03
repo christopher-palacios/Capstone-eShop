@@ -42,7 +42,7 @@ function CheckoutModal(props) {
       },
     },
   };
-  console.log(token);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -94,7 +94,6 @@ function CheckoutModal(props) {
       },
     });
 
-    alert(JSON.stringify(paymentIntent));
     if (paymentIntent.status === "succeeded") {
       await axios
         .post(

@@ -1,14 +1,9 @@
 import axios from "axios";
+
+import wheelie from "../../assets/images/wheelie.jpeg";
 import "./Categories.scss";
 import React, { useState, useEffect } from "react";
-import {
-  // Nav,
-  // Form,
-  // FormControl,
-  // Button,
-  Card,
-  CardDeck,
-} from "react-bootstrap";
+import { Container, Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const baseUrl = "http://localhost:8080/api";
@@ -25,6 +20,8 @@ function Catgegories() {
   return (
     <section>
       <div className="categories">
+        <Card.Img src={wheelie}></Card.Img>
+
         <div className="categories__container">
           {categoryList?.map((cat) => {
             return (

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+
 import LoginModal from "../LoginModal/LogInModal";
 import SignUpModal from "../SignUpModal/SignUpModal";
 import "./Header.scss";

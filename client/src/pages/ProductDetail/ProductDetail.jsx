@@ -18,7 +18,7 @@ function OnSale(props) {
   // const token = sessionStorage.getItem("token");
   // const user = sessionStorage.getItem("user");
   // const userId = sessionStorage.getItem("userId");
-  console.log(user);
+
   const handleChange = (e) => {
     setQuantity(e.target.value);
   };
@@ -45,7 +45,7 @@ function OnSale(props) {
         swal("Success!", "Item has beeen added to cart");
         history.push("/cart");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => swal(err.message));
   };
 
   useEffect(() => {

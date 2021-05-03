@@ -29,7 +29,8 @@ router.post("/", async (req, res) => {
       //UPDATE the cart qty
       existingCart.cartQuantity = existingCart.cartQuantity + quantity;
     } else {
-      //ELSE: if product does NOT EXIST in cart, CREATE new product in cart and push into products array
+      //ELSE: if product does NOT EXIST in cart,
+      // CREATE new product in cart and push into products array
       existingCart.products.push({
         productId: product._id,
         productTotal: total,
@@ -49,7 +50,8 @@ router.post("/", async (req, res) => {
     const productPrices = existingCart.products.map(
       (product) => product.price * product.quantity
     );
-    //Calculate cart total by using reduce method to iterate through product prices and add them together
+    //Calculate cart total by using reduce method to
+    //iterate through product prices and add them together
     existingCart.cartTotal = productPrices.reduce(
       (accumulator, currentValue) => {
         return accumulator + currentValue;
@@ -111,7 +113,8 @@ router.put("/increase/:id", async (req, res) => {
       (product) => product.quantity
     );
 
-    //calculate cart quantity with reduce method to iterate through product quantities and add them together
+    //calculate cart quantity with reduce method to
+    //iterate through product quantities and add them together
     existingCart.cartQuantity = cartQuantities.reduce(
       (accumulator, currentValue) => {
         return accumulator + currentValue;
@@ -121,7 +124,8 @@ router.put("/increase/:id", async (req, res) => {
     //Get array of product prices in cart
     const productPrices = existingCart.products.map((obj) => obj.productTotal);
 
-    //Calculate cart total with reduce method to iterate through product prices and add them together
+    //Calculate cart total with reduce method to
+    //iterate through product prices and add them together
     existingCart.cartTotal = productPrices.reduce(
       (accumulator, currentValue) => {
         return accumulator + currentValue;

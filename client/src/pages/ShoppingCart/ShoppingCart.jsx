@@ -8,9 +8,6 @@ import { Link } from "react-router-dom";
 import "./ShoppingCart.scss";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-// const stripePromise = loadStripe(
-//   "pk_test_51IiCNaCDpCm9ESLbqwa8cZK5HOsB3HbcuwGcvUoQCQ3moNEix44pe4RaxQPYoiJJuS8VbtT0HK29rxKxKovr4joy00ylNJkXCj"
-// );
 
 export function ShoppingCart(props) {
   const {
@@ -22,7 +19,7 @@ export function ShoppingCart(props) {
     purchased,
     setPurchased,
   } = useContext(AppContext);
-  // const [cart, setCart] = useState();
+
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
   const renderLoginMessage = () => {
@@ -32,12 +29,16 @@ export function ShoppingCart(props) {
       </h6>
     );
   };
-  console.log(stripePromise);
+
   const renderPurchaseMessage = () => {
     return (
       <div>
-        <h1>Thank you for your Purchase!</h1>
-        <Link to="/" onClick={() => setPurchased(false)}>
+        <h1 className="text-center">Thank you for your Purchase!</h1>
+        <Link
+          className="text-center"
+          to="/"
+          onClick={() => setPurchased(false)}
+        >
           Go to home
         </Link>
       </div>
@@ -47,8 +48,10 @@ export function ShoppingCart(props) {
   const renderEmptyCartMessage = () => {
     return (
       <div>
-        <h4>Your cart</h4>
-        <h5>No items in your cart, please continue shopping!</h5>
+        <h4 className="text-center">Your cart</h4>
+        <h5 className="text-center">
+          No items in your cart, please continue shopping!
+        </h5>
       </div>
     );
   };
@@ -64,9 +67,7 @@ export function ShoppingCart(props) {
   if (!cart?.products || cart?.products?.length < 1) {
     return renderEmptyCartMessage();
   }
-  console.log(currentUser);
-  console.log(cart);
-  console.log(purchased);
+
   return (
     <section className="cart">
       <div className="cart__list">
