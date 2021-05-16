@@ -30,7 +30,7 @@ Stripe.js test data was also implemented to allow user to input contact and cred
 
 I am still actively working on eShop to :
   - [ ] refactor shopping cart CRUD operations for performace reasons on back end
-  - [ ] implement more features through Stripe.js for users such as discounts, payment methods (apple pay && google pay)
+  - [ ] implement more features with Stripe such as discounts, payment methods (apple pay && google pay)
   - [ ] build on and add more to UX/UI for front end
   - [ ] eventually refactor categories and products displayed
   - [ ] deploy application and add to portfolio
