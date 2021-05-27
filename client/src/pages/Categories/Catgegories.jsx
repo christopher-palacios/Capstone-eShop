@@ -1,9 +1,8 @@
 import axios from "axios";
-
 import wheelie from "../../assets/images/wheelie.jpeg";
 import "./Categories.scss";
 import React, { useState, useEffect } from "react";
-import { Container, Card, CardDeck } from "react-bootstrap";
+import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const baseUrl = "http://localhost:8080/api";
@@ -21,7 +20,6 @@ function Catgegories() {
     <section>
       <div className="categories">
         <Card.Img src={wheelie}></Card.Img>
-
         <div className="categories__container">
           {categoryList?.map((cat) => {
             return (
@@ -32,18 +30,10 @@ function Catgegories() {
                 >
                   <CardDeck>
                     <Card className="categories__card--card">
-                      <Card.Img
-                        className="categories__card--image"
-                        variant="top"
-                        // src={}
-                      />
                       <Card.Body>
-                        <Card.Title>{cat.name}</Card.Title>
-                        <Card.Text>
-                          This is a wider card with supporting text below as a
-                          natural lead-in to additional content. This content is
-                          a little bit longer.
-                        </Card.Text>
+                        <Card.Title className="categories__card--title">
+                          {cat.name}
+                        </Card.Title>
                       </Card.Body>
                       <Card.Footer>
                         <small className="text-muted">

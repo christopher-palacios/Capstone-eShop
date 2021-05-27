@@ -1,4 +1,5 @@
 import React from "react";
+import swal from "sweetalert";
 import { Route, Redirect } from "react-router-dom";
 
 function ProtectedRoute({ component: Component, ...rest }) {
@@ -9,7 +10,11 @@ function ProtectedRoute({ component: Component, ...rest }) {
       <Route
         {...rest}
         render={(routeProps) =>
-          !token ? <Redirect to="/" /> : <Component {...routeProps} />
+          !token ? (
+            (swal("Please log in"), (<Redirect to="/" />))
+          ) : (
+            <Component {...routeProps} />
+          )
         }
       />
     </>
@@ -17,3 +22,4 @@ function ProtectedRoute({ component: Component, ...rest }) {
 }
 
 export default ProtectedRoute;
+//  <Redirect to="/" />

@@ -4,7 +4,8 @@ import CheckoutModal from "../../components/CheckoutModal/CheckoutModal";
 import { AppContext } from "../../AppContext/AppContext";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import swal from "sweetalert";
 import "./ShoppingCart.scss";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
@@ -17,7 +18,7 @@ export function ShoppingCart(props) {
     increaseQty,
     deleteProduct,
     purchased,
-    setPurchased,
+    // setPurchased,
   } = useContext(AppContext);
 
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -32,16 +33,18 @@ export function ShoppingCart(props) {
 
   const renderPurchaseMessage = () => {
     return (
-      <div>
-        <h1 className="text-center">Thank you for your Purchase!</h1>
-        <Link
-          className="text-center"
-          to="/"
-          onClick={() => setPurchased(false)}
-        >
-          Go to home
-        </Link>
-      </div>
+      swal("Thank you for your purchase"), (<Redirect to="/" />)
+
+      // <div>
+      //   <h1 className="text-center">Thank you for your Purchase!</h1>
+      //   <Link
+      //     className="text-center"
+      //     to="/"
+      //     onClick={() => setPurchased(false)}
+      //   >
+      //     Go to home
+      //   </Link>
+      // </div>
     );
   };
 
