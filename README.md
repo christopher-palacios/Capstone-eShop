@@ -15,10 +15,10 @@ eShop is an eCommerce JavaScript application built using:
     
 <hr/>
 
-I chose to develop an eCommerce application for my capstone project to showcase and exercise all the skills 
-(plus a few extra) that i learned during my 12 week bootcamp at BrainStation in just two weeks.
+I chose to develop in just two weeks an eCommerce application for my capstone project to showcase and exercise all the skills 
+(plus a few extra) that i learned during my 12 week bootcamp at BrainStation.
 
-Some challenges faced were developing the logic for a shopping cart versus using a library to perform CRUD operations
+Some challenges faced were developing the logic for a shopping cart, versus using a library, to perform CRUD operations
 to Add, Increase, Decrease, and Remove items from the cart.
 
 Open routes allow user to browse products and view product details but I implemented Protected routes that grants access to adding items 
