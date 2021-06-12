@@ -8,6 +8,6 @@ try {
     useNewUrlParser: true,
   });
   console.log("MongoDB connection SUCCESSFUL");
-} catch (error) {
-  console.log("MongoDB connection UNSUCCESSFUL");
+} catch (err) {
+  console.log(`MongoDB connection UNSUCCESSFUL: ${err.reason}`);
 }

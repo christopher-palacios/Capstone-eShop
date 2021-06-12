@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import ShoppingCartRoundedIcon from "@material-ui/icons/ShoppingCartRounded";
 import LoginModal from "../LoginModal/LogInModal";
 import SignUpModal from "../SignUpModal/SignUpModal";
 import "./Header.scss";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
+import { AppContext } from "../../AppContext/AppContext";
 
 function Header() {
+  const {
+    currentUser,
+    setCurrentUser,
+    cart,
+    setCart,
+    categoryList,
+    setIsSignedIn,
+  } = useContext(AppContext);
   const [logInModalShow, setLogInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
-  const [user, setUser] = useState("Guest");
+  const user = localStorage.getItem("user");
 
   useEffect(() => {
-    const user = sessionStorage.getItem("user");
-    setUser(user);
+    // setCart(cart);
+    setCurrentUser(user);
   }, []);
 
   //LogIn Modal Switches
@@ -41,73 +50,102 @@ function Header() {
 
   //Sign user out by removing token and user from session storage
   const handleSignOut = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userId");
+    setCurrentUser(null);
+    setIsSignedIn(false);
   };
-
   return (
-    <Navbar className="nav__color" variant="dark" expand="lg">
-      {/* <Navbar.Brand className="nav__brand" href="/">
-        eShop
-      </Navbar.Brand> */}
+    <nav className="nav">
+      <Navbar className="nav__color" variant="dark" expand="sm">
+        <Nav.Link className="nav__brand" href="/">
+          eShop
+        </Nav.Link>
 
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          {!user ? (
-            <Nav.Link onClick={handleLoginModalOpen}>Log In</Nav.Link>
-          ) : (
-            <Nav.Link disabled>{user}</Nav.Link>
-          )}
-
-          <NavDropdown title="Shop" id="basic-nav-dropdown ">
-            <NavDropdown.Item className="nav__link" href="/categories">
-              Categories
-            </NavDropdown.Item>
-            <NavDropdown.Item className="nav__link" href="/cart">
-              Cart
-            </NavDropdown.Item>
-            {!user ? (
-              <NavDropdown.Item
-                className="nav__link"
-                onClick={handleSignupModalOpen}
-              >
-                Sign Up
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <NavDropdown
+              className="dropp"
+              title={
+                !cart.cartQuantity ? (
+                  <>
+                    <ShoppingCartRoundedIcon />
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCartRoundedIcon />
+                    <Badge pill variant="light">
+                      {cart.cartQuantity}
+                    </Badge>
+                  </>
+                )
+              }
+            >
+              {categoryList.map((cat) => {
+                return (
+                  <NavDropdown.Item
+                    className="nav__link"
+                    key={cat._id}
+                    href={`/categories/${cat._id}`}
+                  >
+                    Shop {cat.name}
+                  </NavDropdown.Item>
+                );
+              })}{" "}
+              <NavDropdown.Divider />
+              <NavDropdown.Item className="nav__link" href="/cart">
+                Your Cart
               </NavDropdown.Item>
-            ) : (
-              <NavDropdown.Item className="nav__link" onClick={handleSignOut}>
-                Sign Out
-              </NavDropdown.Item>
-            )}
-
-            <NavDropdown.Divider />
-            <NavDropdown.Item className="nav__link" href="#return-policy">
-              Return Policy
-            </NavDropdown.Item>
-            <NavDropdown.Item className="nav__link" href="#contact-us">
-              Contact Us
-            </NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      </Navbar.Collapse>
-      <Navbar.Brand className="nav__brand" href="/">
-        eShop
-      </Navbar.Brand>
-      <LoginModal
-        onHide={handleLoginModalClose}
-        show={logInModalShow}
-        loginClose={handleLoginModalClose}
-        loginSwitch={handleLoginModalSwitch}
-      />
-      <SignUpModal
-        onHide={handleSignupModalClose}
-        show={signUpModalShow}
-        showLogin={logInModalShow}
-        signupClose={handleSignupModalClose}
-        signupSwitch={handleSignupModalSwitch}
-      />
-    </Navbar>
+            </NavDropdown>
+            <NavDropdown
+              title={currentUser || "Guest"}
+              id="dropdown-menu-align-right"
+            >
+              {currentUser ? (
+                <NavDropdown.Item className="nav__link" onClick={handleSignOut}>
+                  Sign Out
+                </NavDropdown.Item>
+              ) : (
+                <>
+                  <NavDropdown.Item onClick={handleLoginModalOpen}>
+                    Log In
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    className="nav__link"
+                    onClick={handleSignupModalOpen}
+                  >
+                    Create Account
+                  </NavDropdown.Item>
+                </>
+              )}
+            </NavDropdown>
+            {/* <Nav.Link href="/cart">
+             <ShoppingCartRoundedIcon className="nav__cart" />
+            {!cart.cartQuantity ? null : (
+               <Badge pill variant="light">
+                 {cart.cartQuantity}
+               </Badge>
+             )}
+           </Nav.Link> */}
+          </Nav>
+        </Navbar.Collapse>
+        <LoginModal
+          onHide={handleLoginModalClose}
+          show={logInModalShow}
+          loginClose={handleLoginModalClose}
+          loginSwitch={handleLoginModalSwitch}
+        />
+        <SignUpModal
+          onHide={handleSignupModalClose}
+          show={signUpModalShow}
+          showLogin={logInModalShow}
+          signupClose={handleSignupModalClose}
+          signupSwitch={handleSignupModalSwitch}
+        />
+      </Navbar>
+    </nav>
   );
 }
 

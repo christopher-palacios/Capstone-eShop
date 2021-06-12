@@ -4,10 +4,15 @@
   color: #353535;
 }
 
+#root {
+  height: 100vh;
+}
+
 .swal-footer {
   text-align: center !important;
 }
 
 .swal-text {
   font-size: 3rem !important;
+  text-align: center;
 }

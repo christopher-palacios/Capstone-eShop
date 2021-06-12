@@ -2,7 +2,6 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../AppContext/AppContext";
-import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import "./ProductDetail.scss";
 
@@ -10,42 +9,86 @@ const baseUrl = "http://localhost:8080/api";
 
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
-  const [quantity, setQuantity] = useState(1);
-  const { setCart, token, user } = useContext(AppContext);
-  const history = useHistory();
-
-  //Get from session storage
-  // const token = sessionStorage.getItem("token");
-  // const user = sessionStorage.getItem("user");
-  // const userId = sessionStorage.getItem("userId");
-
-  const handleChange = (e) => {
-    setQuantity(e.target.value);
-  };
+  const [quantity] = useState(1);
+  const { setCart, token, currentUser } = useContext(AppContext);
 
   const handleSubmit = (product) => {
-    const price = product.price.slice(1, 9);
-    const noCommaPrice = price.split(",").join("");
-    axios
-      .post(
-        `${baseUrl}/cart`,
-        {
-          quantity,
-          product,
-          price: noCommaPrice,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setCart(res.data);
+    const price = product.price.slice(0, 9).split(",").join("");
+    //if not current user
+    if (!token) {
+      let storage = localStorage.getItem("guestCart");
+      let guestCart = JSON.parse(storage);
+      const isExist = guestCart.products
+        .map((product) => product.name)
+        .includes(product.name);
+      if (!isExist) {
+        let newProduct = {
+          quantity: 1,
+          productTotal: Number(product.price),
+          productId: product._id,
+          name: product.name,
+          price: Number(product.price),
+          image: product.image,
+          category: product.category,
+        };
+        //add new product to guest cart
+        guestCart.products.push(newProduct);
+        //recalculate totals for cart
+        guestCart.cartTotal = guestCart.products
+          .map((product) => Number(product.productTotal))
+          .reduce((acc, curr) => acc + curr);
+        guestCart.cartQuantity = guestCart.products
+          .map((product) => Number(product.quantity))
+          .reduce((acc, curr) => acc + curr);
+        //save carts to state and local storage
+        localStorage.setItem("guestCart", JSON.stringify(guestCart));
+        setCart(guestCart);
         swal("Success!", "Item has beeen added to cart");
-        history.push("/cart");
-      })
-      .catch((err) => swal(err.message));
+      } else if (isExist) {
+        //find index of existing product in guest cart
+        const existingIndex = guestCart.products
+          .map((product) => product.name)
+          .indexOf(product.name);
+        //update existing product totals
+        guestCart.products[existingIndex].productTotal =
+          Number(guestCart.products[existingIndex].productTotal) +
+          Number(product.price);
+        guestCart.products[existingIndex].quantity =
+          Number(guestCart.products[existingIndex].quantity) + 1;
+        //recalculate cart totals
+        guestCart.cartTotal = guestCart.products
+          .map((product) => product.productTotal)
+          .reduce((acc, curr) => acc + curr);
+        guestCart.cartQuantity = guestCart.products
+          .map((product) => product.quantity)
+          .reduce((acc, curr) => acc + curr);
+        //save guest cart to state and local storage
+        setCart(guestCart);
+        swal("Success!", "Item has beeen updated");
+        localStorage.setItem("guestCart", JSON.stringify(guestCart));
+      }
+    }
+    if (token) {
+      axios
+        .post(
+          `${baseUrl}/cart`,
+          {
+            quantity,
+            product,
+            price,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          setCart(res.data);
+          swal("Success!", "Item has beeen added to cart");
+        })
+        .catch((err) => swal("Please sign in to continue shopping"));
+    }
   };
 
   useEffect(() => {
@@ -54,9 +97,7 @@ function OnSale(props) {
       const selectedProduct = res.data;
       setSelectedProduct(selectedProduct);
     });
-    axios.get();
   }, [props.match.params]);
-
   return (
     <>
       <div className="product">
@@ -78,18 +119,7 @@ function OnSale(props) {
             </div>
             <div className="product__details--action">
               <div className="product__details--qty">
-                <Form>
-                  <Form.Group controlId="exampleForm.ControlSelect1">
-                    <Form.Label>QTY</Form.Label>
-                    <Form.Control onChange={handleChange} as="select">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </Form.Control>
-                  </Form.Group>
-                </Form>
+                <Form></Form>
               </div>
               <Button
                 onClick={() => {
@@ -103,14 +133,7 @@ function OnSale(props) {
             </div>
           </div>
           <div className="product__details--footer">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-              aliquet porta tempor. Integer fermentum consequat finibus. Aenean
-              scelerisque dapibus tincidunt. Fusce molestie risus ut metus
-              viverra pharetra. Nam varius eros magna, eu laoreet orci posuere
-              ac. Nullam sit amet hendrerit sapien. Phasellus mollis pulvinar
-              urna nec pulvinar.
-            </p>
+            <p>{selectedProduct.description}</p>
           </div>
           {/* <div className="product__review">
               <div className="product__review--card">

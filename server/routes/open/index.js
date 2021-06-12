@@ -2,7 +2,6 @@ const router = require("express").Router();
 const User = require("../../db/models/user");
 const Bike = require("../../db/models/product");
 const Category = require("../../db/models/category");
-const { response } = require("express");
 const Product = require("../../db/models/product");
 
 // Create a user
@@ -45,9 +44,33 @@ router.get("/current", async (req, res) => {
 
 // Get list of categories
 router.get("/categories", async (req, res) => {
-  const bikes = await Bike.find();
-  const categories = await Category.find();
-  res.json(categories);
+  try {
+    // const bikes = await Bike.find();
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (err) {
+    res.status.json({ message: "Error getting list of categories" });
+  }
+});
+
+// Get list of products
+router.get("/product/list", async (req, res) => {
+  try {
+    const productList = await Product.find();
+    res.json(productList);
+  } catch (err) {
+    res.status(400).json({ message: "Error getting product list" });
+  }
+});
+
+// Get specific product by id
+router.get("/product/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(400).json({ message: "Error getting product by ID" });
+  }
 });
 
 //  Get list of products by category id

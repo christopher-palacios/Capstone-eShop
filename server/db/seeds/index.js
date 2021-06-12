@@ -11,6 +11,7 @@ const bmxProducts = require("../../data/bmxProducts");
 const fixieProducts = require("../../data/fixieProducts");
 const offRoadProducts = require("../../data/offRoadProducts");
 const electricProducts = require("../../data/electricProducts");
+const productList = require("../../data/productList");
 
 const dbReset = async () => {
   try {
@@ -21,7 +22,6 @@ const dbReset = async () => {
       await collection.deleteMany();
     }
     //provide the number of documents for each collection for verification
-
     await User.countDocuments({}, function (err, count) {
       console.log(`Number of users: `, count);
     });
@@ -31,8 +31,6 @@ const dbReset = async () => {
     await Product.countDocuments({}, function (err, count) {
       console.log(`Number of products: `, count);
     });
-
-    //create new users,  products
 
     // for (let i = 0; i < 5; i++) {
     //   const user = new User({
@@ -45,81 +43,73 @@ const dbReset = async () => {
     // }
 
     //create new categories
-    const categories = ["BMX", "Fixie", "Off Road", "Electric"];
     const categoryIds = [];
-
-    for (let i = 0; i < categories.length; i++) {
+    let double = new Set();
+    let catList = productList.map((product) => {
+      return product.category;
+    });
+    //filter category names
+    let newCategoryList = catList
+      .filter((cat) => {
+        let duplicate = double.has(cat);
+        double.add(cat);
+        return !duplicate;
+      })
+      .sort()
+      .reverse();
+    // loop through category names for seed
+    for (let i = 0; i < newCategoryList.length; i++) {
       const category = new Category({
-        name: categories[i],
+        name: newCategoryList[i],
       });
       await category.save();
       categoryIds.push(category._id);
     }
-
-    //create new products for each category
-
-    //create the array with the required info for each product
-    //make a for loop for that array to create a new Product document for each item,
-    //add the id of the category to each product
-
-    //BMX Products for loop
-    for (let i = 0; i < bmxProducts.length; i++) {
-      const product = new Product({
-        name: bmxProducts[i].name,
-        price: bmxProducts[i].price,
-        description: faker.commerce.productDescription(),
-        link: bmxProducts[i].image_url,
-        image: bmxProducts[i].image,
-        category: bmxProducts[i].category,
-        categoryId: categoryIds[0],
-      });
-      await product.save();
+    //new ProductList seed by category name for category/:id
+    for (let i = 0; i < productList.length; i++) {
+      if (productList[i].category === "Women's clothing") {
+        const product = new Product({
+          name: productList[i].name,
+          price: productList[i].price,
+          description: productList[i].description,
+          category: productList[i].category,
+          categoryId: categoryIds[0],
+          image: productList[i].image,
+        });
+        await product.save();
+      } else if (productList[i].category === "Men's clothing") {
+        const product = new Product({
+          name: productList[i].name,
+          price: productList[i].price,
+          description: productList[i].description,
+          category: productList[i].category,
+          categoryId: categoryIds[1],
+          image: productList[i].image,
+        });
+        await product.save();
+      } else if (productList[i].category === "Jewelery") {
+        const product = new Product({
+          name: productList[i].name,
+          price: productList[i].price,
+          description: productList[i].description,
+          category: productList[i].category,
+          categoryId: categoryIds[2],
+          image: productList[i].image,
+        });
+        await product.save();
+      } else if (productList[i].category === "Electronics") {
+        const product = new Product({
+          name: productList[i].name,
+          price: productList[i].price,
+          description: productList[i].description,
+          category: productList[i].category,
+          categoryId: categoryIds[3],
+          image: productList[i].image,
+        });
+        await product.save();
+      }
     }
-
-    //Fixie Products for loop
-    for (let i = 0; i < fixieProducts.length; i++) {
-      const product = new Product({
-        name: fixieProducts[i].name,
-        price: fixieProducts[i].price,
-        description: faker.commerce.productDescription(),
-        link: fixieProducts[i].image_url,
-        image: fixieProducts[i].image,
-        category: fixieProducts[i].category,
-        categoryId: categoryIds[1],
-      });
-      await product.save();
-    }
-
-    //Off Road Products for loop
-    for (let i = 0; i < offRoadProducts.length; i++) {
-      const product = new Product({
-        name: offRoadProducts[i].name,
-        price: offRoadProducts[i].price,
-        description: faker.commerce.productDescription(),
-        link: offRoadProducts[i].image_url,
-        image: offRoadProducts[i].image,
-        category: offRoadProducts[i].category,
-        categoryId: categoryIds[2],
-      });
-      await product.save();
-    }
-
-    //Electric Products for loop
-    for (let i = 0; i < electricProducts.length; i++) {
-      const product = new Product({
-        name: electricProducts[i].name,
-        price: electricProducts[i].price,
-        description: faker.commerce.productDescription(),
-        link: electricProducts[i].image_url,
-        image: electricProducts[i].image,
-        category: electricProducts[i].category,
-        categoryId: categoryIds[3],
-      });
-      await product.save();
-    }
-
     //provide the number of documents for each collection for verification
-
     await User.countDocuments({}, function (err, count) {
       console.log(`Number of users: `, count);
     });

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import wheelie from "../../assets/images/wheelie.jpeg";
-import { Card, CardDeck, Button, Container } from "react-bootstrap";
+import { Card, Button, Accordion } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ControlledCarousel from "../../components/Carousel/Carousel";
 import "./Home.scss";
@@ -10,23 +9,24 @@ import axios from "axios";
 const baseUrl = "http://localhost:8080/api";
 
 function Home() {
-  const [random, setRandom] = useState();
+  const [randomItems, setRandomItems] = useState([]);
   const { categoryList } = useContext(AppContext);
-  console.log(categoryList);
 
-  //first get random category id
+  const getRandom = () => {
+    const randomIndex = Math.floor(Math.random() * categoryList.length);
+    const randomId = categoryList[randomIndex]?._id;
+    axios.get(`${baseUrl}/categories/${randomId}`).then((res) => {
+      setRandomItems(res.data);
+    });
+  };
 
-  //then use category id to get product list &
-  //save random product list to state with useEffect hook
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getRandom();
+  }, []);
 
-  //then map through product list and get 4 random products
-  console.log(random);
+  console.log(randomItems);
   return (
     <section className="home">
-      {/* <div className="home__hero">
-        <img className="home__hero--image" src={wheelie} fluid />
-      </div> */}
       <div className="home__carousel">
         <ControlledCarousel />
       </div>
@@ -37,7 +37,10 @@ function Home() {
           <Card.Text className="home__feat--text">
             Shop our categoriess below
           </Card.Text>
-          <Link to="/categories">
+          <Link
+            onClick={getRandom}
+            //  to="/categories"
+          >
             <Button className="home__feat--button" variant="primary">
               Shop Now
             </Button>
@@ -45,10 +48,39 @@ function Home() {
         </Card.Body>
         <Card.Footer className="text-muted home__feat--foot">
           {categoryList?.map((cat) => {
-            return <Link to={`/categories/${cat._id}`}>{cat.name}</Link>;
+            return (
+              <Link key={cat._id} to={`/categories/${cat._id}`}>
+                {cat.name}
+              </Link>
+            );
           })}
         </Card.Footer>
       </Card>
+      <div>
+        <Accordion defaultActiveKey="0">
+          <Card>
+            <Accordion.Toggle as={Card.Header}>
+              Featured Products
+            </Accordion.Toggle>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Click me!
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="0">
+              <Card.Body>Hello! I'm the body</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+          <Card>
+            <Accordion.Toggle as={Card.Header} eventKey="1">
+              Click me!
+            </Accordion.Toggle>
+            <Accordion.Collapse eventKey="1">
+              <Card.Body>Hello! I'm another body</Card.Body>
+            </Accordion.Collapse>
+          </Card>
+        </Accordion>
+      </div>
     </section>
   );
 }

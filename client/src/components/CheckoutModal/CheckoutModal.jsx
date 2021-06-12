@@ -7,14 +7,8 @@ import axios from "axios";
 const baseUrl = "http://localhost:8080/api";
 
 function CheckoutModal(props) {
-  const {
-    cart,
-    token,
-    loading,
-    setLoading,
-    setPurchased,
-    setCart,
-  } = useContext(AppContext);
+  const { cart, token, loading, setLoading, setPurchased, setCart } =
+    useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();
   const [formData, setFormData] = useState({});
@@ -195,7 +189,7 @@ function CheckoutModal(props) {
         </form>
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-between">
-        <p>Total: ${cart?.cartTotal?.toFixed()}</p>
+        <p>Total: ${cart?.cartTotal?.toFixed(2)}</p>
         <Button onClick={handlePayment} disabled={loading}>
           {loading ? "Sending..." : "Confirm Payment"}
         </Button>

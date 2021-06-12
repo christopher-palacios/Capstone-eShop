@@ -10,17 +10,8 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
-  link: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
-    // required: true,
   },
   category: {
     type: String,
@@ -29,6 +20,10 @@ const productSchema = new Schema({
   categoryId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
+  },
+  image: {
+    type: String,
+    required: true,
   },
 });
 

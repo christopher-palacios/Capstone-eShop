@@ -1,5 +1,11 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  //  useContext
+} from "react";
+// import { AppContext } from "../../AppContext/AppContext";
 import "./itemList.scss";
 import {
   Nav,
@@ -11,52 +17,36 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
+import { AppContext } from "../../AppContext/AppContext";
 
 const baseUrl = "http://localhost:8080/api";
 
 function ItemList(props) {
-  // const [currentUser, setcurrentuser] = useState()
+  const guestCart = JSON.parse(localStorage.getItem("guestCart"));
+  // const { productList } = useContext(AppContext);
+  const { categoryList } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
   const [search, setSearch] = useState("");
   const [drop, setDrop] = useState("");
 
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
+  const { id } = props.match.params;
 
-  useEffect(() => {
-    const { id } = props.match.params;
-
-    // GET selectedCategory by id
+  const getSelected = () => {
     axios.get(`${baseUrl}/categories/${id}`).then((res) => {
       setSelectedCategory(res.data);
     });
+  };
 
-    // GET list of categories
-    axios.get(`${baseUrl}/categories`).then((res) => {
-      setCategoryList(res.data);
-      const selectedCat = res.data.filter((cat) => cat._id === id);
-      const selectedCatName = selectedCat[0].name;
-      setDrop(selectedCatName);
+  useEffect(() => {
+    getSelected();
+    let current = categoryList.filter((cat) => {
+      return cat._id === id;
     });
-
-    //Get product by id
-    // axios call to backend to get currentUser info and set it to state
-    // const token = sessionStorage.getItem("token");
-    // axios
-    //   .get(`${baseUrl}/users/current`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     this.setState({ currentUser: res.data });
-    //   })
-    //   .catch((err) => console.log(err));
-  }, [props.match.params]);
-  console.log(selectedCategory);
-  console.log(categoryList);
+    setDrop(current[0]?.name);
+  }, [categoryList, id]);
   return (
     <section>
       <div className="sub-nav">
@@ -97,26 +87,26 @@ function ItemList(props) {
               ?.filter((item) => {
                 return item.name.toLowerCase().includes(search.toLowerCase());
               })
-              .map((bike) => {
+              .map((product) => {
                 return (
-                  <Card className="shop__card--indv" key={bike._id}>
+                  <Card className="shop__card--indv" key={product._id}>
                     <Card.Body>
                       <Card.Link
                         className="shop__card--top"
-                        href={`/product/${bike._id}`}
+                        href={`/product/${product._id}`}
                       >
                         <Card.Img
                           className="shop__card--img"
                           variant="top"
-                          src={bike.image}
+                          src={product.image}
                         />
                       </Card.Link>
                     </Card.Body>
                     <Card.Footer>
-                      <Card.Title>{bike.name}</Card.Title>
+                      <Card.Title>{product.name}</Card.Title>
 
                       <small className="text-muted">
-                        <Card.Text>{bike.price}</Card.Text>
+                        <Card.Text>{product.price}</Card.Text>
                       </small>
                     </Card.Footer>
                   </Card>

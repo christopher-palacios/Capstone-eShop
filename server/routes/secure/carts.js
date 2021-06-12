@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
   res.status(224).json(newCart);
 });
 
-///Increase cart quantity on click///
+// /Increase cart quantity on click/; //
 router.put("/increase/:id", async (req, res) => {
   const { product } = req.body;
   //Find cart by user id and cart id
@@ -98,40 +98,57 @@ router.put("/increase/:id", async (req, res) => {
     let currentProductInCart = existingCart.products.find((obj) => {
       return obj.productId.toString() === product.productId.toString();
     });
-    //UPDATE current product
-    let updatedProduct = currentProductInCart;
-    //Increase product quantity by 1
-    updatedProduct.quantity = updatedProduct.quantity + 1;
-    //increase product total by product price
-    updatedProduct.productTotal = updatedProduct.productTotal + product.price;
-    //UPDATE product
-    currentProductInCart = updatedProduct;
+    // console.log("cur", currentProductInCart);
+    // //UPDATE current product
+    // let updatedProduct = currentProductInCart;
+    // //Increase product quantity by 1
+    // updatedProduct.quantity = updatedProduct.quantity + 1;
+    // //increase product total by product price
+    // updatedProduct.productTotal = updatedProduct.productTotal + product.price;
+    // //UPDATE product
+    // // console.log("up", updatedProduct);
+    // currentProductInCart = updatedProduct;
 
-    ///UPDATE cart totals (quantity && price)///
-    //Get array of product quantities in cart
-    const cartQuantities = existingCart.products.map(
-      (product) => product.quantity
-    );
+    currentProductInCart.quantity = currentProductInCart.quantity + 1;
+    currentProductInCart.productTotal =
+      currentProductInCart.productTotal + product.price;
 
-    //calculate cart quantity with reduce method to
-    //iterate through product quantities and add them together
-    existingCart.cartQuantity = cartQuantities.reduce(
-      (accumulator, currentValue) => {
+    // ///UPDATE cart totals (quantity && price)///
+    // //Get array of product quantities in cart
+    // const cartQuantities = existingCart.products.map(
+    //   (product) => product.quantity
+    // );
+    // console.log(cartQuantities, "qty");
+    // //calculate cart quantity with reduce method to
+    // //iterate through product quantities and add them together
+    // existingCart.cartQuantity = cartQuantities.reduce((accum, currentValue) => {
+    //   return accum + currentValue;
+    // }, 0);
+    // console.log(existingCart.cartQuantity);
+
+    existingCart.cartQuantity = existingCart.products
+      .map((product) => product.quantity)
+      .reduce((accum, currentValue) => {
+        return accum + currentValue;
+      }, 0);
+
+    // //Get array of product prices in cart
+    // const productPrices = existingCart.products.map((obj) => obj.productTotal);
+
+    // //Calculate cart total with reduce method to
+    // //iterate through product prices and add them together
+    // existingCart.cartTotal = productPrices.reduce(
+    //   (accumulator, currentValue) => {
+    //     return accumulator + currentValue;
+    //   },
+    //   0
+    // );
+
+    existingCart.cartTotal = existingCart.products
+      .map((obj) => obj.productTotal)
+      .reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
-      },
-      0
-    );
-    //Get array of product prices in cart
-    const productPrices = existingCart.products.map((obj) => obj.productTotal);
-
-    //Calculate cart total with reduce method to
-    //iterate through product prices and add them together
-    existingCart.cartTotal = productPrices.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + currentValue;
-      },
-      0
-    );
+      }, 0);
 
     await existingCart.save();
     return res.status(200).json(existingCart);
@@ -160,7 +177,6 @@ router.put("/decrease/:id", async (req, res) => {
       const updatedProducts = existingCart.products.filter((obj) => {
         return obj._id !== currentProductInCart._id;
       });
-      console.log(updatedProducts);
       //UPDATE existing cart with updated products
       existingCart.products = updatedProducts;
       //UPDATE existing cart quantity

@@ -3,7 +3,7 @@ import swal from "sweetalert";
 import { Route, Redirect } from "react-router-dom";
 
 function ProtectedRoute({ component: Component, ...rest }) {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   return (
     <>
@@ -11,7 +11,7 @@ function ProtectedRoute({ component: Component, ...rest }) {
         {...rest}
         render={(routeProps) =>
           !token ? (
-            (swal("Please log in"), (<Redirect to="/" />))
+            (swal("Please log in to access your cart"), (<Redirect to="/" />))
           ) : (
             <Component {...routeProps} />
           )

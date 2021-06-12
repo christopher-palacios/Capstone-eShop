@@ -8,6 +8,20 @@
   @include tablet {
     height: 93.6vh;
   }
+  &__alt {
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &--title {
+      font-size: 42px;
+      text-decoration: underline;
+    }
+    &--empty {
+      font-size: 32px;
+      text-align: center;
+    }
+  }
   &__list {
     @include tablet {
       // height: 81%;

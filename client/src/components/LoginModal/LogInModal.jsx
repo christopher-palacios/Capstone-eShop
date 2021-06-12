@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import swal from "sweetalert";
 import axios from "axios";
 import "./LoginModal.scss";
+import { AppContext } from "../../AppContext/AppContext";
 
 function LogInModal(props) {
+  const { setCurrentUser, setIsSignedIn } = useContext(AppContext);
   const [formData, setFormData] = useState();
 
   const handleChange = (e) => {
@@ -25,11 +27,14 @@ function LogInModal(props) {
         const { firstName, _id } = res.data.user;
         const user = firstName;
         //save token in session storage
-        sessionStorage.setItem("token", token);
+        localStorage.setItem("token", token);
         //save user in session storage
-        sessionStorage.setItem("user", user);
+        localStorage.setItem("user", user);
         //save user id in session storage
-        sessionStorage.setItem("userId", _id);
+        localStorage.setItem("userId", _id);
+        setIsSignedIn(true);
+        setCurrentUser(user);
+        localStorage.removeItem("guestCart");
       })
       .catch((err) =>
         swal({ text: "Check your email/password and try again" })
