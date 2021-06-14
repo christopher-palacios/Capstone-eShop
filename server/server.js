@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8080;
 if (process.env.NODE_ENV === "production") {
   //cd into client folder and npm run build when ready
   app.use(express.static("client/build"));
+  app.use(cors());
 }
 
 //open routes
