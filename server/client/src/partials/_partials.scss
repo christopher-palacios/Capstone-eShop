@@ -1,0 +1,28 @@
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #353535;
+  font-family: sans-serif;
+}
+
+$black: #353535;
+$darkGrey: #adada7;
+$grey: #e3e4db;
+$lightBlue: #264653a9;
+$blue: #264653;
+$white: #ffffff;
+$lightRed: #e76f51a9;
+$red: #e76f51;
