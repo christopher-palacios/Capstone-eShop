@@ -2,12 +2,11 @@
 @use "../../App.scss" as *;
 .nav {
   @include tablet {
-    padding: 0 60px;
-    background-color: $blue;
+    // background-color: $blue;
     width: 100%;
   }
   @include desktop {
-    padding: 0 180px;
+    // padding: 0 180px;
   }
   // &__link {
   //   text-align: end;

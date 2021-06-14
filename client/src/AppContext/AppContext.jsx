@@ -14,6 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
+  const [randomItems, setRandomItems] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [drop, setDrop] = useState("");
   const [cart, setCart] = useState([]);
@@ -196,9 +197,20 @@ export const ContextProvider = ({ children }) => {
       }
     }
   };
+  // const getRandom = () => {
+  //   const randomIndex = Math.floor(Math.random() * categoryList?.length);
+  //   const randomId = categoryList[randomIndex]?._id;
+
+  //   axios.get(`${baseUrl}/categories/${randomId}`).then((res) => {
+  //     setRandomItems(res.data);
+  //     console.log(res.data);
+  //   });
+  // };
+
   useEffect(() => {
     getCategoryList();
     getProductList();
+    // getRandom();
     if (!token && storage === null) {
       setCart(guestCart);
       localStorage.setItem("guestCart", JSON.stringify(guestCart));
@@ -216,6 +228,8 @@ export const ContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        randomItems,
+        setRandomItems,
         isSignedIn,
         setIsSignedIn,
         logInModalShow,

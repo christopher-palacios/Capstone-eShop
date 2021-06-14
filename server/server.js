@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 const passport = require("./middleware/authentication");
 const cors = require("cors");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 //open routes
 const openRoutes = require("./routes/open");
@@ -30,5 +30,10 @@ app.use("/api/*", passport.authenticate("jwt", { session: false }));
 app.use("/api/users", secureUserRoutes);
 app.use("/api/cart", secureCartRoutes);
 app.use("/api/order", secureOrderRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  //cd into client folder and npm run build when ready
+  app.use(express.static("client/build"));
+}
 
 app.listen(PORT, () => console.log(`Express is running on ${PORT}`));

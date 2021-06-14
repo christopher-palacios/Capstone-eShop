@@ -15,10 +15,20 @@
 
   &__feat {
     margin: 32px 0;
+    // border-radius: unset;
+    filter: grayscale(0%) !important;
+
+    &--head {
+      background-color: $red;
+    }
     &--foot {
       display: flex;
       justify-content: space-evenly;
     }
+  }
+  &__random {
+    // border: 1px solid red;
+    height: 200px;
   }
 }
 

@@ -75,9 +75,15 @@ router.get("/product/:id", async (req, res) => {
 
 //  Get list of products by category id
 router.get("/categories/:id", async (req, res) => {
-  const category = await Category.findById(req.params.id);
-  await category.populate("products").execPopulate();
-  res.json(category.products);
+  try {
+    console.log("req", req.params.id);
+    const category = await Category.findById(req.params.id);
+    console.log("cat", category);
+    await category.populate("products").execPopulate();
+    res.json(category.products);
+  } catch (error) {
+    res.status(200).json({ message: "Error getting products by Category ID" });
+  }
 });
 
 // Get product by :id with category name included in object

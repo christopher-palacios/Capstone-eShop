@@ -4,7 +4,7 @@ import { Carousel } from "react-bootstrap";
 // import bmx from "../../assets/images/rideBMX.jpg";
 // import fixie from "../../assets/images/beachFixie.jpg";
 // import offRoad from "../../assets/images/offroad.jpg";
-import clothes from "../../assets/images/clothes.jpg";
+import clothes from "../../assets/images/clothing.jpg";
 import jewelry from "../../assets/images/jewelry.jpg";
 import electronics from "../../assets/images/electronics.jpg";
 

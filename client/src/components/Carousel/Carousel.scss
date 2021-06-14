@@ -1,7 +1,7 @@
 @use '../../partials/partials' as *;
 .hero {
   &__img {
-    height: 650px;
+    height: 400px;
     object-fit: cover;
     object-position: center;
     background-color: $grey;
@@ -12,9 +12,18 @@
     border: 1px solid $darkGrey;
     border-radius: 5px;
     &--title {
+      font-size: 3rem;
       font-family: "AvenirReg";
-      font-size: 62px;
       color: $blue;
+      @include tablet {
+        font-size: 62px;
+      }
+    }
+    &--text {
+      font-size: 1rem;
+      @include tablet {
+        font-size: 2rem;
+      }
     }
   }
 }

@@ -22,7 +22,7 @@ import { AppContext } from "../../AppContext/AppContext";
 const baseUrl = "http://localhost:8080/api";
 
 function ItemList(props) {
-  const guestCart = JSON.parse(localStorage.getItem("guestCart"));
+  // const guestCart = JSON.parse(localStorage.getItem("guestCart"));
   // const { productList } = useContext(AppContext);
   const { categoryList } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -48,7 +48,7 @@ function ItemList(props) {
     setDrop(current[0]?.name);
   }, [categoryList, id]);
   return (
-    <section>
+    <section className="itemList">
       <div className="sub-nav">
         <Nav className="sub-nav__links" activeKey="/home">
           <DropdownButton
@@ -102,7 +102,7 @@ function ItemList(props) {
                         />
                       </Card.Link>
                     </Card.Body>
-                    <Card.Footer>
+                    <Card.Footer className="shop__card--footer">
                       <Card.Title>{product.name}</Card.Title>
 
                       <small className="text-muted">

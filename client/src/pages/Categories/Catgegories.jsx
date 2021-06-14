@@ -1,6 +1,11 @@
 import axios from "axios";
-import wheelie from "../../assets/images/wheelie.jpeg";
 import "./Categories.scss";
+// import clothes from "../../assets/images/clothes.jpg";
+import man from "../../assets/images/mn.jpg";
+import woman from "../../assets/images/wmn.jpg";
+import jewel from "../../assets/images/jewel.jpg";
+import tech from "../../assets/images/tech.jpg";
+
 import React, { useState, useEffect } from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -19,7 +24,7 @@ function Catgegories() {
   return (
     <section>
       <div className="categories">
-        <Card.Img src={wheelie}></Card.Img>
+        <h1>Categories</h1>
         <div className="categories__container">
           {categoryList?.map((cat) => {
             return (
@@ -30,12 +35,24 @@ function Catgegories() {
                 >
                   <CardDeck>
                     <Card className="categories__card--card">
-                      <Card.Body>
+                      <Card.Body className="categories__card--body">
                         <Card.Title className="categories__card--title">
                           {cat.name}
                         </Card.Title>
+                        <Card.Img
+                          src={
+                            cat.name === "Women's clothing"
+                              ? woman
+                              : cat.name === "Men's clothing"
+                              ? man
+                              : cat.name === "Jewelery"
+                              ? jewel
+                              : tech
+                          }
+                          className="categories__card--img"
+                        />
                       </Card.Body>
-                      <Card.Footer>
+                      <Card.Footer className="categories__card--foot">
                         <small className="text-muted">
                           {`Click here for more ${cat.name} bikes`}
                         </small>
