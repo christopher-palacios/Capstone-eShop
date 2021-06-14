@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 
-const baseUrl = "https://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api";
 
 export const AppContext = createContext();
 
