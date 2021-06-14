@@ -22,10 +22,7 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "build": "cd client && npm run build",
-    "install-client": "cd client && npm install",
-    "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "seed": "node db/seeds/index.js"
   },
   "author": ""
