@@ -16,7 +16,7 @@ function SignUpModal(props) {
   const handleSubmit = (e) => {
     // submit it to backend to receive token
     axios
-      .post("http://localhost:8080/api/users", formData)
+      .post("https://localhost:8080/api/users", formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;

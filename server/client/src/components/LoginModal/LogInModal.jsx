@@ -19,7 +19,7 @@ function LogInModal(props) {
     // submit it to backend to receive token
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/users/login", formData)
+      .post("https://localhost:8080/api/users/login", formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;
