@@ -39,7 +39,7 @@ router.post("/users/login", async (req, res) => {
 
 // Get current user
 router.get("/current", async (req, res) => {
-  res.status(200).json(JSON.parse(req.user));
+  res.status(200).json(req.user);
 });
 
 // Get list of categories
@@ -47,7 +47,7 @@ router.get("/categories", async (req, res) => {
   try {
     // const bikes = await Bike.find();
     const categories = await Category.find();
-    res.status(200).json(JSON.parse(categories));
+    res.status(200).json(categories);
   } catch (err) {
     res.status(400).json({ message: "Error getting list of categories" });
   }
@@ -57,7 +57,7 @@ router.get("/categories", async (req, res) => {
 router.get("/product/list", async (req, res) => {
   try {
     const productList = await Product.find();
-    res.status(200).json(JSON.parse(productList));
+    res.status(200).json(productList);
   } catch (err) {
     res.status(400).json({ message: "Error getting product list" });
   }
@@ -67,7 +67,7 @@ router.get("/product/list", async (req, res) => {
 router.get("/product/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    res.status(200).json(JSON.parse(product));
+    res.status(200).json(product);
   } catch (err) {
     res.status(400).json({ message: "Error getting product by ID" });
   }
@@ -79,7 +79,7 @@ router.get("/categories/:id", async (req, res) => {
     console.log("req", req.params.id);
     const category = await Category.findById(req.params.id);
     await category.populate("products").execPopulate();
-    res.status(200).json(JSON.parse(category.products));
+    res.status(200).json(category.products);
   } catch (error) {
     res.status(400).json({ message: "Error getting products by Category ID" });
   }
@@ -89,7 +89,7 @@ router.get("/categories/:id", async (req, res) => {
 router.get("/product/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
   await product.populate({ path: "categoryId", select: "name" }).execPopulate();
-  res.status(200).json(JSON.parse(product));
+  res.status(200).json(product);
 });
 
 module.exports = router;
