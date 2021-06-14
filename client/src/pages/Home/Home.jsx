@@ -1,22 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Card, Button, Accordion } from "react-bootstrap";
+import React, { useContext, useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ControlledCarousel from "../../components/Carousel/Carousel";
 import "./Home.scss";
 import { AppContext } from "../../AppContext/AppContext";
-import axios from "axios";
+// import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api";
+// const baseUrl = "http://localhost:8080/api";
 
 function Home() {
   const { categoryList } = useContext(AppContext);
-
-  // axios.get(`${baseUrl}/categories/${id}`).then((res) => {
-  //   setSelectedCategory(res.data);
-  // });
-
-  // Get random products
-
   useEffect(() => {}, []);
   return (
     <section className="home">
