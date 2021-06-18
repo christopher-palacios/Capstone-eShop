@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const passport = require("./middleware/authentication");
 const cors = require("cors");
+const path = require("path");
 const PORT = process.env.PORT || 8080;
 
 // if (process.env.NODE_ENV === "production") {
