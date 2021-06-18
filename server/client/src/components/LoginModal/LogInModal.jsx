@@ -6,10 +6,10 @@ import axios from "axios";
 import "./LoginModal.scss";
 import { AppContext } from "../../AppContext/AppContext";
 
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function LogInModal(props) {
-  const { setCurrentUser, setIsSignedIn } = useContext(AppContext);
+  const { setCurrentUser, setIsSignedIn, baseUrl } = useContext(AppContext);
   const [formData, setFormData] = useState();
 
   const handleChange = (e) => {

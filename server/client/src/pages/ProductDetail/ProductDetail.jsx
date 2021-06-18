@@ -5,12 +5,12 @@ import { AppContext } from "../../AppContext/AppContext";
 import swal from "sweetalert";
 import "./ProductDetail.scss";
 
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [quantity] = useState(1);
-  const { setCart, token, currentUser } = useContext(AppContext);
+  const { setCart, token, baseUrl } = useContext(AppContext);
 
   const handleSubmit = (product) => {
     const price = product.price.slice(0, 9).split(",").join("");

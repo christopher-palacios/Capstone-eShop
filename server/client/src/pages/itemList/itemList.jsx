@@ -19,12 +19,12 @@ import {
 } from "react-bootstrap";
 import { AppContext } from "../../AppContext/AppContext";
 
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function ItemList(props) {
   // const guestCart = JSON.parse(localStorage.getItem("guestCart"));
   // const { productList } = useContext(AppContext);
-  const { categoryList } = useContext(AppContext);
+  const { categoryList, baseUrl } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [search, setSearch] = useState("");
   const [drop, setDrop] = useState("");

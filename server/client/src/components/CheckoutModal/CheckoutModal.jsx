@@ -4,10 +4,10 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../../components/Field/Field";
 import axios from "axios";
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function CheckoutModal(props) {
-  const { cart, token, loading, setLoading, setPurchased, setCart } =
+  const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
     useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();

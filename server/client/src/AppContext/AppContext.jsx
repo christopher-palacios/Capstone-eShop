@@ -2,11 +2,11 @@ import React, { createContext, useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 
-const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 // https://e-shop-cp.herokuapp.com/api/product/list
 export const AppContext = createContext();
 
 export const ContextProvider = ({ children }) => {
+  const baseUrl = "https://e-shop-cp.herokuapp.com/api";
   const token = localStorage.getItem("token");
   // const user = localStorage.getItem("user");
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -228,6 +228,7 @@ export const ContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        baseUrl,
         randomItems,
         setRandomItems,
         isSignedIn,

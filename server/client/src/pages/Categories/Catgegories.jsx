@@ -6,13 +6,15 @@ import woman from "../../assets/images/wmn.jpg";
 import jewel from "../../assets/images/jewel.jpg";
 import tech from "../../assets/images/tech.jpg";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../AppContext/AppContext";
 
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function Catgegories() {
+  const { baseUrl } = useContext(AppContext);
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {

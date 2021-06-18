@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
+import { AppContext } from "../../AppContext/AppContext";
 
-const baseUrl = "http://e-shop-cp.herokuapp.com/api";
+// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function SignUpModal(props) {
+  const { baseUrl } = useContext(AppContext);
   const [formData, setFormData] = useState();
 
   const handleChange = (e) => {
