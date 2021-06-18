@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const baseUrl = "https://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api";
 
 function Catgegories() {
   const [categoryList, setCategoryList] = useState([]);

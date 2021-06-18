@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 
-const baseUrl = "https://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api";
 
 function SignUpModal(props) {
   const [formData, setFormData] = useState();

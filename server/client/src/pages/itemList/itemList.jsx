@@ -19,7 +19,7 @@ import {
 } from "react-bootstrap";
 import { AppContext } from "../../AppContext/AppContext";
 
-const baseUrl = "https://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api";
 
 function ItemList(props) {
   // const guestCart = JSON.parse(localStorage.getItem("guestCart"));
