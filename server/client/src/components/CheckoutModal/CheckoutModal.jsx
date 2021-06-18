@@ -60,15 +60,17 @@ function CheckoutModal(props) {
       },
     });
 
-    const { data } = await axios.post(
-      `${baseUrl}/order/intent`,
-      { cart, paymentMethod },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await axios
+      .post(
+        `${baseUrl}/order/intent`,
+        { cart, paymentMethod },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => console.log(err.message));
 
     const { paymentIntent } = await stripe.confirmCardPayment(data, {
       payment_method: {
