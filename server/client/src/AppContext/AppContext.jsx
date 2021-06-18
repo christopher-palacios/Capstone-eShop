@@ -2,8 +2,8 @@ import React, { createContext, useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 
-const baseUrl = "http://localhost:8080/api";
-
+const baseUrl = "https://e-shop-cp.herokuapp.com/api";
+// https://e-shop-cp.herokuapp.com/api/product/list
 export const AppContext = createContext();
 
 export const ContextProvider = ({ children }) => {

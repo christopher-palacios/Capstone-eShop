@@ -4,7 +4,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../../components/Field/Field";
 import axios from "axios";
-const baseUrl = "http://localhost:8080/api";
+const baseUrl = "http://e-shop-cp.herokuapp.com/api";
 
 function CheckoutModal(props) {
   const { cart, token, loading, setLoading, setPurchased, setCart } =
