@@ -16,7 +16,7 @@ function Catgegories() {
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    axios.get(`${baseUrl}/categories`).then((res) => {
+    axios.get(`/categories`).then((res) => {
       setCategoryList(res.data);
     });
   }, []);

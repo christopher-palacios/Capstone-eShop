@@ -62,7 +62,7 @@ function CheckoutModal(props) {
 
     const { data } = await axios
       .post(
-        `${baseUrl}/order/intent`,
+        `/order/intent`,
         { cart, paymentMethod },
         {
           headers: {

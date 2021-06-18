@@ -71,7 +71,7 @@ function OnSale(props) {
     if (token) {
       axios
         .post(
-          `${baseUrl}/cart`,
+          `/cart`,
           {
             quantity,
             product,
