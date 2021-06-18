@@ -35,7 +35,7 @@ function ItemList(props) {
   const { id } = props.match.params;
 
   const getSelected = () => {
-    axios.get(`/categories/${id}`).then((res) => {
+    axios.get(`${baseUrl}/categories/${id}`).then((res) => {
       setSelectedCategory(res.data);
     });
   };

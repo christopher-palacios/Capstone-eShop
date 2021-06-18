@@ -34,7 +34,7 @@ export const ContextProvider = ({ children }) => {
   //Get list of categories
   const getCategoryList = async () => {
     axios
-      .get(`/categories`)
+      .get(`${baseUrl}/categories`)
       .then((res) => {
         setCategoryList(res.data);
       })
@@ -44,7 +44,7 @@ export const ContextProvider = ({ children }) => {
   //Get product list
   const getProductList = async () => {
     axios
-      .get(`/product/list`)
+      .get(`${baseUrl}/product/list`)
       .then((res) => {
         setProductList(res.data);
       })
@@ -56,7 +56,7 @@ export const ContextProvider = ({ children }) => {
   //Get cart
   const getCart = async () => {
     axios
-      .get(`/cart`, {
+      .get(`${baseUrl}/cart`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -92,7 +92,7 @@ export const ContextProvider = ({ children }) => {
       try {
         await axios
           .put(
-            `/cart/increase/${cartId}`,
+            `${baseUrl}/cart/increase/${cartId}`,
             { product, cartId },
             {
               headers: {
@@ -137,7 +137,7 @@ export const ContextProvider = ({ children }) => {
       try {
         await axios
           .put(
-            `/cart/decrease/${cartId}`,
+            `${baseUrl}/cart/decrease/${cartId}`,
             { product },
             {
               headers: {
@@ -182,7 +182,7 @@ export const ContextProvider = ({ children }) => {
       try {
         await axios
           .put(
-            `/cart/delete/${cartId}`,
+            `${baseUrl}/cart/delete/${cartId}`,
             { product, cartId },
             {
               headers: {
@@ -201,7 +201,7 @@ export const ContextProvider = ({ children }) => {
   //   const randomIndex = Math.floor(Math.random() * categoryList?.length);
   //   const randomId = categoryList[randomIndex]?._id;
 
-  //   axios.get(`/categories/${randomId}`).then((res) => {
+  //   axios.get(`${baseUrl}/categories/${randomId}`).then((res) => {
   //     setRandomItems(res.data);
   //     console.log(res.data);
   //   });
