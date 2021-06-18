@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import axios from "axios";
 
+const baseUrl = "https://localhost:8080/api";
+
 function SignUpModal(props) {
   const [formData, setFormData] = useState();
 
@@ -16,7 +18,7 @@ function SignUpModal(props) {
   const handleSubmit = (e) => {
     // submit it to backend to receive token
     axios
-      .post("http://localhost:8080/api/users", formData)
+      .post(`${baseUrl}/users`, formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;

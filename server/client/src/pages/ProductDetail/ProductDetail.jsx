@@ -5,7 +5,7 @@ import { AppContext } from "../../AppContext/AppContext";
 import swal from "sweetalert";
 import "./ProductDetail.scss";
 
-const baseUrl = "http://localhost:8080/api";
+const baseUrl = "https://localhost:8080/api";
 
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);

@@ -6,6 +6,8 @@ import axios from "axios";
 import "./LoginModal.scss";
 import { AppContext } from "../../AppContext/AppContext";
 
+const baseUrl = "https://localhost:8080/api";
+
 function LogInModal(props) {
   const { setCurrentUser, setIsSignedIn } = useContext(AppContext);
   const [formData, setFormData] = useState();
@@ -19,7 +21,7 @@ function LogInModal(props) {
     // submit it to backend to receive token
     e.preventDefault();
     axios
-      .post("http://localhost:8080/api/users/login", formData)
+      .post(`${baseUrl}/users/login`, formData)
       .then((res) => {
         //get token from response
         const token = res.data.token;
