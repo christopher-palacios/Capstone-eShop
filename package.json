@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js",
     "seed": "node ./server/db/seeds/index",
-    "heroku-postbuild": "cd client && npm install && npm start"
+    "heroku-postbuild": "cd client && npm install && npm start && cd .. && cd server && npm install && npm start"
   },
   "repository": {
     "type": "git",
