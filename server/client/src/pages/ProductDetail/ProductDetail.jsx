@@ -1,11 +1,10 @@
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
 import swal from "sweetalert";
 import "./ProductDetail.scss";
-
-// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
 
 function OnSale(props) {
   const [selectedProduct, setSelectedProduct] = useState([]);
@@ -99,7 +98,14 @@ function OnSale(props) {
     });
   }, [props.match.params]);
   return (
-    <>
+    <div className="section">
+      <Link
+        className="product__back"
+        to={`/categories/${selectedProduct.categoryId}`}
+      >
+        {" "}
+        {`Back To ${selectedProduct.category}`}
+      </Link>
       <div className="product">
         <img
           className="product__img"
@@ -115,12 +121,10 @@ function OnSale(props) {
               <h3 className="product__details--category">
                 {selectedProduct.category}
               </h3>
-              <h4>Price: {selectedProduct.price}</h4>
+              <h4>{`Price: $${selectedProduct.price}`}</h4>
             </div>
             <div className="product__details--action">
-              <div className="product__details--qty">
-                <Form></Form>
-              </div>
+              <div className="product__details--qty"></div>
               <Button
                 onClick={() => {
                   handleSubmit(selectedProduct);
@@ -135,18 +139,9 @@ function OnSale(props) {
           <div className="product__details--footer">
             <p>{selectedProduct.description}</p>
           </div>
-          {/* <div className="product__review">
-              <div className="product__review--card">
-                <div className="product__review--head">
-                  <h3>user</h3>
-                  <h3>timestamp</h3>
-                </div>
-                <h3>review text goes here</h3>
-              </div>
-            </div> */}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

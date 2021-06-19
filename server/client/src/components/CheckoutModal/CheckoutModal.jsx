@@ -93,7 +93,7 @@ function CheckoutModal(props) {
     if (paymentIntent.status === "succeeded") {
       await axios
         .post(
-          `${baseUrl}/order`,
+          `${stripeUrl}/order`,
           { cart, transactionId: paymentIntent.id },
           {
             headers: {

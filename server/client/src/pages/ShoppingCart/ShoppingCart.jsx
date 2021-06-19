@@ -7,7 +7,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import "./ShoppingCart.scss";
-import Stripe from "../../components/Stripe/Stripe";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
@@ -20,7 +19,6 @@ export function ShoppingCart() {
     purchased,
     setCart,
     token,
-    setPurchased,
   } = useContext(AppContext);
 
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
@@ -53,7 +51,7 @@ export function ShoppingCart() {
     if (!token) {
       setCart(guestCart);
     }
-  }, []);
+  }, [token]);
 
   if (purchased) {
     return renderPurchaseMessage();

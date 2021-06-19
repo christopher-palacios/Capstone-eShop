@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ControlledCarousel from "../../components/Carousel/Carousel";
 import "./Home.scss";
@@ -16,31 +16,46 @@ function Home() {
       <div className="home__carousel">
         <ControlledCarousel />
       </div>
-      <Card className="text-center home__feat">
-        <Card.Header className="home__feat--head">Categories</Card.Header>
-        <Card.Body className="home__feat--body">
-          {/* <Card.Title className="home__feat--title">Shop By</Card.Title> */}
-          <Card.Text className="home__feat--text">
-            Shop our categoriess below
-          </Card.Text>
-          <Link to="/categories">
-            <Button className="home__feat--button" variant="primary">
-              Shop Now
-            </Button>
-          </Link>
-        </Card.Body>
-        <Card.Footer className="text-muted home__feat--foot">
-          {categoryList?.map((cat) => {
-            return (
-              <Link key={cat._id} to={`/categories/${cat._id}`}>
-                {cat.name}
-              </Link>
-            );
-          })}
-        </Card.Footer>
-      </Card>
-      <div className="home__random">
-        <div className="home__random--card"></div>
+      <h2 className="home__title">Welcome to eShop</h2>
+      <div className="home__shop">
+        <Card className="text-center home__feat">
+          <Card.Header className="home__feat--title">Categories</Card.Header>
+          <Card.Body className="home__feat--body">
+            {/* <Card.Title className="home__feat--title">Shop By</Card.Title> */}
+            <Card.Text className="home__feat--text">
+              Shop our categoriess below
+            </Card.Text>
+            <Link to="/categories">
+              <Button className="home__feat--button" variant="primary">
+                Shop Now
+              </Button>
+            </Link>
+          </Card.Body>
+        </Card>
+        <div className="home__categories">
+          <div className="home__categories--card">
+            <Card className="text-center">
+              <Card.Header className="home__categories--title">
+                Featured
+              </Card.Header>
+              <ListGroup>
+                {categoryList?.map((cat) => {
+                  return (
+                    <Link
+                      className="home__categories--link"
+                      key={cat._id}
+                      to={`/categories/${cat._id}`}
+                    >
+                      <ListGroup.Item className="home__categories--list-item">
+                        {cat.name}
+                      </ListGroup.Item>
+                    </Link>
+                  );
+                })}
+              </ListGroup>
+            </Card>
+          </div>
+        </div>
       </div>
     </section>
   );

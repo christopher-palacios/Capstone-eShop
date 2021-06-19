@@ -1,32 +1,21 @@
-import axios from "axios";
 import "./Categories.scss";
-// import clothes from "../../assets/images/clothes.jpg";
 import man from "../../assets/images/mn.jpg";
 import woman from "../../assets/images/wmn.jpg";
 import jewel from "../../assets/images/jewel.jpg";
 import tech from "../../assets/images/tech.jpg";
 
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
 
-// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
-
 function Catgegories() {
-  const { baseUrl } = useContext(AppContext);
-  const [categoryList, setCategoryList] = useState([]);
-
-  useEffect(() => {
-    axios.get(`${baseUrl}/categories`).then((res) => {
-      setCategoryList(res.data);
-    });
-  }, []);
+  const { categoryList } = useContext(AppContext);
 
   return (
     <section>
       <div className="categories">
-        <h1>Categories</h1>
+        <h1 className="categories__title">Categories</h1>
         <div className="categories__container">
           {categoryList?.map((cat) => {
             return (
@@ -42,6 +31,7 @@ function Catgegories() {
                           {cat.name}
                         </Card.Title>
                         <Card.Img
+                          className="categories__card--img"
                           src={
                             cat.name === "Women's clothing"
                               ? woman
@@ -51,12 +41,11 @@ function Catgegories() {
                               ? jewel
                               : tech
                           }
-                          className="categories__card--img"
                         />
                       </Card.Body>
                       <Card.Footer className="categories__card--foot">
                         <small className="text-muted">
-                          {`Click here for more ${cat.name} bikes`}
+                          {`Click here for more ${cat.name} `}
                         </small>
                       </Card.Footer>
                     </Card>

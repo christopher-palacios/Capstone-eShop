@@ -1,38 +1,74 @@
 @use '../../partials/partials' as *;
 
 .home {
-  // margin: 40px 0;
-  &__hero {
-    display: flex;
-    justify-content: center;
-    &--image {
-      object-fit: contain;
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    color: $lightBlue;
+    margin: 24px;
+    @include tablet {
+      font-size: 4rem;
+    }
+    @include desktop {
+      font-size: 5rem;
     }
   }
-  &__hero {
-    height: 50vh;
+  &__shop {
+    margin: 0 16px;
+    @include tablet {
+      margin: 0 32px 24px 32px;
+    }
+    @include desktop {
+      margin: 64px 180px 32px 180px;
+    }
   }
-
   &__feat {
     margin: 32px 0;
-    // border-radius: unset;
-    filter: grayscale(0%) !important;
-
-    &--head {
-      background-color: $red;
+    border: 1px solid $lightBlue;
+    @include desktop {
+      margin-bottom: 60px;
     }
-    &--foot {
+
+    &--title {
+      background-color: $grey;
+      font-size: 18px;
+    }
+    &--button {
+      background-color: $lightRed;
+      &:hover {
+        background-color: $red;
+      }
+      &:active {
+        background-color: $red;
+      }
+    }
+  }
+  &__categories {
+    border: 1px solid $lightBlue;
+    border-radius: 5px;
+    margin-bottom: 32px;
+    &--title {
+      font-size: 18px;
+      background-color: $grey;
+    }
+    &--list-item {
+      height: 60px;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background-color: $lightRed;
+      }
+      &:active {
+        background-color: $red;
+      }
+
+      @include desktop {
+        &:hover {
+          font-size: 19px;
+        }
+      }
     }
   }
-  &__random {
-    // border: 1px solid red;
-    height: 200px;
-  }
-}
-
-.card-header {
-  border: 1px solid $red;
-  background-color: $lightRed;
 }

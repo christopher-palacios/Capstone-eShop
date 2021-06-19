@@ -1,11 +1,5 @@
 import axios from "axios";
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  //  useContext
-} from "react";
-// import { AppContext } from "../../AppContext/AppContext";
+import React, { useState, useEffect, useContext } from "react";
 import "./itemList.scss";
 import {
   Nav,
@@ -19,11 +13,7 @@ import {
 } from "react-bootstrap";
 import { AppContext } from "../../AppContext/AppContext";
 
-// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
-
 function ItemList(props) {
-  // const guestCart = JSON.parse(localStorage.getItem("guestCart"));
-  // const { productList } = useContext(AppContext);
   const { categoryList, baseUrl } = useContext(AppContext);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [search, setSearch] = useState("");
@@ -90,7 +80,7 @@ function ItemList(props) {
               .map((product) => {
                 return (
                   <Card className="shop__card--indv" key={product._id}>
-                    <Card.Body>
+                    <Card.Body className="shop__card--body">
                       <Card.Link
                         className="shop__card--top"
                         href={`/product/${product._id}`}
@@ -106,7 +96,7 @@ function ItemList(props) {
                       <Card.Title>{product.name}</Card.Title>
 
                       <small className="text-muted">
-                        <Card.Text>{product.price}</Card.Text>
+                        <Card.Text>{`$${product.price}`}</Card.Text>
                       </small>
                     </Card.Footer>
                   </Card>

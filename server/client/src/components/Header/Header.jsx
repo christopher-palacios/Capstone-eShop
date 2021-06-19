@@ -7,20 +7,13 @@ import { Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 import { AppContext } from "../../AppContext/AppContext";
 
 function Header() {
-  const {
-    currentUser,
-    setCurrentUser,
-    cart,
-    setCart,
-    categoryList,
-    setIsSignedIn,
-  } = useContext(AppContext);
+  const { currentUser, setCurrentUser, cart, categoryList, setIsSignedIn } =
+    useContext(AppContext);
   const [logInModalShow, setLogInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const user = localStorage.getItem("user");
 
   useEffect(() => {
-    // setCart(cart);
     setCurrentUser(user);
   }, []);
 
