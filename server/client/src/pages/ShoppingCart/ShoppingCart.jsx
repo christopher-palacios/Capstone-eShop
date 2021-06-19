@@ -8,7 +8,10 @@ import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import "./ShoppingCart.scss";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+const stripePromise = loadStripe(
+  "pk_test_51IiCNaCDpCm9ESLbqwa8cZK5HOsB3HbcuwGcvUoQCQ3moNEix44pe4RaxQPYoiJJuS8VbtT0HK29rxKxKovr4joy00ylNJkXCj"
+);
 
 export function ShoppingCart() {
   const {
@@ -60,7 +63,7 @@ export function ShoppingCart() {
   if (!cart?.products || cart?.products?.length < 1) {
     return renderEmptyCartMessage();
   }
-  console.log(cart.products);
+  console.log(stripePromise);
   return (
     <section className="cart">
       <div className="cart__list">
@@ -153,6 +156,7 @@ export function ShoppingCart() {
           </div>
         </div>
       )}
+
       <Elements stripe={stripePromise}>
         <CheckoutModal
           show={showCheckoutModal}

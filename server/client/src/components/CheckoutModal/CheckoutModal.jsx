@@ -5,9 +5,10 @@ import { Modal, Button } from "react-bootstrap";
 import Field from "../../components/Field/Field";
 import axios from "axios";
 const stripeUrl = "https://api.stripe.com";
+const baseUrl = "http://localhost:8080/api";
 
 function CheckoutModal(props) {
-  const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
+  const { cart, token, loading, setLoading, setPurchased, setCart } =
     useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();
@@ -59,15 +60,17 @@ function CheckoutModal(props) {
       },
     });
     console.log(paymentMethod);
-    const { data } = await axios.post(
-      `${baseUrl}/order/intent`,
-      { cart, paymentMethod },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const { data } = await axios
+      .post(
+        `${baseUrl}/order/intent`,
+        { cart, paymentMethod },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => err.message);
 
     console.log(data);
     const { paymentIntent } = await stripe.confirmCardPayment(data, {
