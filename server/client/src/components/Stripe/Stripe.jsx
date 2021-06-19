@@ -5,9 +5,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_KEY}`);
 
-function Stripe() {
+function Stripe(props) {
   const { showCheckoutModal, setShowCheckoutModal } = useContext(AppContext);
-  console.log(typeof stripePromise);
   return (
     <>
       <Elements stripe={stripePromise}>

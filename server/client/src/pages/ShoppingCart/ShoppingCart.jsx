@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import CheckoutModal from "../../components/CheckoutModal/CheckoutModal";
 import { AppContext } from "../../AppContext/AppContext";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import "./ShoppingCart.scss";
 import Stripe from "../../components/Stripe/Stripe";
 
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 export function ShoppingCart() {
   const {
@@ -18,19 +18,18 @@ export function ShoppingCart() {
     increaseQty,
     deleteProduct,
     purchased,
-    currentUser,
     setCart,
     token,
-    // showCheckoutModal,
-    // setShowCheckoutModal,
-    // setPurchased,
+    setPurchased,
   } = useContext(AppContext);
+
   const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   let guestCart = JSON.parse(localStorage.getItem("guestCart"));
+
   const checkAuth = () => {
     if (!token) {
       swal("Please sign in to checkout");
-    } else {
+    } else if (token) {
       setShowCheckoutModal(true);
     }
   };
@@ -51,8 +50,6 @@ export function ShoppingCart() {
   };
 
   useEffect(() => {
-    console.log(guestCart);
-
     if (!token) {
       setCart(guestCart);
     }
@@ -152,13 +149,12 @@ export function ShoppingCart() {
           </button>
         </div>
       )}
-      <Stripe />
-      {/* <Elements loadStripe={stripePromise}>
+      <Elements stripe={stripePromise}>
         <CheckoutModal
           show={showCheckoutModal}
           onHide={() => setShowCheckoutModal(false)}
         />
-      </Elements> */}
+      </Elements>
     </section>
   );
 }

@@ -19,7 +19,6 @@ export const ContextProvider = ({ children }) => {
   const [drop, setDrop] = useState("");
   const [cart, setCart] = useState([]);
   const [purchased, setPurchased] = useState();
-  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
   const [logInModalShow, setLogInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -237,8 +236,6 @@ export const ContextProvider = ({ children }) => {
         setLogInModalShow,
         signUpModalShow,
         setSignUpModalShow,
-        showCheckoutModal,
-        setShowCheckoutModal,
         selectedCategory,
         setSelectedCategory,
         selectedProduct,
