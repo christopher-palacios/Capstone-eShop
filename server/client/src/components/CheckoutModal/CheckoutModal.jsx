@@ -4,7 +4,7 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../../components/Field/Field";
 import axios from "axios";
-// const baseUrl = "https://e-shop-cp.herokuapp.com/api";
+const stripeUrl = "https://api.stripe.com";
 
 function CheckoutModal(props) {
   const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
@@ -62,7 +62,7 @@ function CheckoutModal(props) {
 
     const { data } = await axios
       .post(
-        `/order/intent`,
+        `${baseUrl}/order/intent`,
         { cart, paymentMethod },
         {
           headers: {
