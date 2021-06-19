@@ -9,7 +9,7 @@ import sass from "../../assets/icons/sass.svg";
 import stripe from "../../assets/icons/stripe.svg";
 import javascript from "../../assets/icons/javascript.svg";
 import "./About.scss";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 import { Container, Row, Col, Image } from "react-bootstrap";
 
 function About() {
@@ -57,7 +57,7 @@ function About() {
           </Row>
         </Container>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

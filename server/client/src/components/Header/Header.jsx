@@ -111,6 +111,11 @@ function Header() {
                   >
                     Create Account
                   </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="/about">About Us</NavDropdown.Item>
+                  <NavDropdown.Item href="/contact">
+                    Contact Us
+                  </NavDropdown.Item>
                 </>
               )}
             </NavDropdown>

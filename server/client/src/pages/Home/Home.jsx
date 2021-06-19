@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import ControlledCarousel from "../../components/Carousel/Carousel";
 import "./Home.scss";
 import { AppContext } from "../../AppContext/AppContext";
-import Footer from "../../components/Footer/Footer";
-// const baseUrl = "http://localhost:8080/api";
+// import Footer from "../../components/Footer/Footer";
 
 function Home() {
   const { categoryList } = useContext(AppContext);
@@ -58,7 +57,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

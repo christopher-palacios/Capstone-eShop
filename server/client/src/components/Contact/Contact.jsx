@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
-import Footer from "../Footer/Footer";
+// import Footer from "../Footer/Footer";
 import "./Contact.scss";
 import linkedin from "../../assets/icons/linkedin.png";
 import github from "../../assets/icons/github.png";
@@ -33,7 +33,7 @@ function Contact() {
           </Row>
         </Container>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </section>
   );
 }

@@ -3,7 +3,7 @@ import man from "../../assets/images/mn.jpg";
 import woman from "../../assets/images/wmn.jpg";
 import jewel from "../../assets/images/jewel.jpg";
 import tech from "../../assets/images/tech.jpg";
-import Footer from "../../components/Footer/Footer";
+// import Footer from "../../components/Footer/Footer";
 import React, { useContext } from "react";
 import { Card, CardDeck } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -58,7 +58,7 @@ function Catgegories() {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
   // }

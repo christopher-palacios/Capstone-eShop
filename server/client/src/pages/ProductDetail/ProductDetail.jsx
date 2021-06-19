@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Button } from "react-bootstrap";
-import Footer from "../../components/Footer/Footer";
+// import Footer from "../../components/Footer/Footer";
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
@@ -143,7 +143,7 @@ function OnSale(props) {
             </div>
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </section>
     </>
   );
