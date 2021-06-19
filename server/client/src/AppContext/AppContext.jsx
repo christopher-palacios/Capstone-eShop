@@ -2,12 +2,11 @@ import React, { createContext, useState, useEffect } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 
-// https://e-shop-cp.herokuapp.com/api/product/list
+// https://e-shop-cp.herokuapp.com/api
 export const AppContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  // const baseUrl = "https://e-shop-cp.herokuapp.com/api";
-  const baseUrl = "http://localhost:8080/api";
+  const baseUrl = "https://e-shop-cp.herokuapp.com/api";
   const token = localStorage.getItem("token");
   // const user = localStorage.getItem("user");
   const [selectedCategory, setSelectedCategory] = useState([]);
