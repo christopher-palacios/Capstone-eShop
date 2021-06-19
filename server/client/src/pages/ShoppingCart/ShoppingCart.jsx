@@ -60,7 +60,7 @@ export function ShoppingCart() {
   if (!cart?.products || cart?.products?.length < 1) {
     return renderEmptyCartMessage();
   }
-  console.log(cart);
+  console.log(cart.products);
   return (
     <section className="cart">
       <div className="cart__list">
@@ -78,9 +78,7 @@ export function ShoppingCart() {
                 <Link to={`/product/${product.productId}`}>
                   <Card.Title>{product.name}</Card.Title>
                 </Link>
-                <Link to={`/categories`}>
-                  <Card.Text>{`${product.category}`}</Card.Text>
-                </Link>
+                <Card.Text>{`${product.category}`}</Card.Text>
               </Card.Body>
               <ListGroup className="cart__info">
                 <ListGroupItem className="cart__info--price">{`Price: $${product.productTotal.toFixed(
@@ -139,13 +137,20 @@ export function ShoppingCart() {
             </h2>
             <h2>{cart?.cartQuantity}</h2>
           </div>
-          <button
-            // onClick={() => setShowCheckoutModal(true)}
-            onClick={() => checkAuth()}
-            className="cart__footer--checkout"
-          >
-            Checkout
-          </button>
+          <div className="cart__footer--action">
+            <button
+              // onClick={() => setShowCheckoutModal(true)}
+              onClick={() => checkAuth()}
+              className="cart__footer--checkout"
+            >
+              Checkout
+            </button>
+            <Link to="/categories">
+              <button className="cart__footer--checkout">
+                Continue Shopping
+              </button>
+            </Link>
+          </div>
         </div>
       )}
       <Elements stripe={stripePromise}>
