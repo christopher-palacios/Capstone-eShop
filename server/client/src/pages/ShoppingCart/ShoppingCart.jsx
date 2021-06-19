@@ -8,10 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import "./ShoppingCart.scss";
 
-// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-const stripePromise = loadStripe(
-  "pk_test_51IiCNaCDpCm9ESLbqwa8cZK5HOsB3HbcuwGcvUoQCQ3moNEix44pe4RaxQPYoiJJuS8VbtT0HK29rxKxKovr4joy00ylNJkXCj"
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 export function ShoppingCart() {
   const {
@@ -36,7 +33,7 @@ export function ShoppingCart() {
   };
 
   const renderPurchaseMessage = () => {
-    return swal("Thank you for your purchase")(<Redirect to="/" />);
+    return <Redirect to="/" />;
   };
 
   const renderEmptyCartMessage = () => {
@@ -63,12 +60,11 @@ export function ShoppingCart() {
   if (!cart?.products || cart?.products?.length < 1) {
     return renderEmptyCartMessage();
   }
-  console.log(stripePromise);
   return (
     <section className="cart">
       <div className="cart__list">
         <div className="cart__list--title"></div>
-        {cart?.products?.map((product) => {
+        {cart?.products.map((product) => {
           return (
             //  ADJUST FONT SIZES FOR BREAKPOINTS
             <Card key={product.productId} className="cart__card">

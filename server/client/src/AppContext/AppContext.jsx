@@ -6,7 +6,8 @@ import axios from "axios";
 export const AppContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const baseUrl = "https://e-shop-cp.herokuapp.com/api";
+  // const baseUrl = "https://e-shop-cp.herokuapp.com/api";
+  const baseUrl = "http://localhost:8080/api";
   const token = localStorage.getItem("token");
   // const user = localStorage.getItem("user");
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -62,10 +63,11 @@ export const ContextProvider = ({ children }) => {
       .then((res) => setCart(res.data))
       .catch((err) => swal("getCart", err.message));
   };
-  console.log(cart);
+
   //INCREASE product quantity in cart
   const increaseQty = async (product, cartId) => {
     if (!token) {
+      console.log("no toke");
       let guestCart = JSON.parse(localStorage.getItem("guestCart"));
       //find product index in guest cart
       let index = guestCart.products

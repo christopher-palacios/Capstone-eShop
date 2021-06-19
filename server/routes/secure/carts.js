@@ -5,7 +5,6 @@ const Cart = require("../../db/models/cart");
 router.post("/", async (req, res) => {
   const { product, quantity, price } = req.body;
   const total = price * quantity;
-
   //Find existing cart by user id
   const existingCart = await Cart.findOne({
     userId: req.user._id,
@@ -99,31 +98,29 @@ router.put("/increase/:id", async (req, res) => {
       return obj.productId.toString() === product.productId.toString();
     });
     // console.log("cur", currentProductInCart);
-    // //UPDATE current product
-    // let updatedProduct = currentProductInCart;
-    // //Increase product quantity by 1
-    // updatedProduct.quantity = updatedProduct.quantity + 1;
-    // //increase product total by product price
-    // updatedProduct.productTotal = updatedProduct.productTotal + product.price;
-    // //UPDATE product
-    // // console.log("up", updatedProduct);
-    // currentProductInCart = updatedProduct;
+    //UPDATE current product
+    let updatedProduct = currentProductInCart;
+    //Increase product quantity by 1
+    updatedProduct.quantity = updatedProduct.quantity + 1;
+    //increase product total by product price
+    updatedProduct.productTotal = updatedProduct.productTotal + product.price;
+    //UPDATE product
+    // console.log("up", updatedProduct);
+    currentProductInCart = updatedProduct;
+    // currentProductInCart.quantity = currentProductInCart.quantity + 1;
+    // currentProductInCart.productTotal =
+    //   currentProductInCart.productTotal + product.price;
 
-    currentProductInCart.quantity = currentProductInCart.quantity + 1;
-    currentProductInCart.productTotal =
-      currentProductInCart.productTotal + product.price;
-
-    // ///UPDATE cart totals (quantity && price)///
-    // //Get array of product quantities in cart
-    // const cartQuantities = existingCart.products.map(
-    //   (product) => product.quantity
-    // );
-    // console.log(cartQuantities, "qty");
-    // //calculate cart quantity with reduce method to
-    // //iterate through product quantities and add them together
-    // existingCart.cartQuantity = cartQuantities.reduce((accum, currentValue) => {
-    //   return accum + currentValue;
-    // }, 0);
+    ///UPDATE cart totals (quantity && price)///
+    //Get array of product quantities in cart
+    const cartQuantities = existingCart.products.map(
+      (product) => product.quantity
+    );
+    //calculate cart quantity with reduce method to
+    //iterate through product quantities and add them together
+    existingCart.cartQuantity = cartQuantities.reduce((accum, currentValue) => {
+      return accum + currentValue;
+    }, 0);
     // console.log(existingCart.cartQuantity);
 
     existingCart.cartQuantity = existingCart.products
@@ -149,7 +146,6 @@ router.put("/increase/:id", async (req, res) => {
       .reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
       }, 0);
-
     await existingCart.save();
     return res.status(200).json(existingCart);
   }
@@ -197,7 +193,6 @@ router.put("/decrease/:id", async (req, res) => {
       const productPrices = existingCart.products.map(
         (product) => product.productTotal
       );
-      console.log(productPrices);
       //Calculate cart total with reduce method to iterate through produce prices and add them together
       existingCart.cartTotal = productPrices.reduce(
         (accumulator, currentValue) => {
@@ -210,34 +205,36 @@ router.put("/decrease/:id", async (req, res) => {
       return res.status(200).json(existingCart);
     }
     /// IF current product quantity is equal to more than 1
-    let updatedProduct = currentProductInCart;
-    //decrease product quantity amount by 1
-    updatedProduct.quantity = updatedProduct.quantity - 1;
-    //subtract product price from product total
-    updatedProduct.productTotal = updatedProduct.productTotal - product.price;
-    //update current product
-    currentProductInCart = updatedProduct;
+    // let updatedProduct = currentProductInCart;
+    // //decrease product quantity amount by 1
+    // updatedProduct.quantity = updatedProduct.quantity - 1;
+    // //subtract product price from product total
+    // updatedProduct.productTotal = updatedProduct.productTotal - product.price;
+    // //update current product
+    // currentProductInCart = updatedProduct;
+
+    currentProductInCart.quantity = currentProductInCart.quantity - 1;
+    currentProductInCart.productTotal =
+      currentProductInCart.productTotal - product.price;
 
     ///UPDATE cart quantity
     const cartQuantities = existingCart.products.map(
       (product) => product.quantity
     );
-    existingCart.cartQuantity = cartQuantities.reduce(
-      (accumulator, currentValue) => {
+    existingCart.cartQuantity = cartQuantities
+      .reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
-      },
-      0
-    );
+      }, 0)
+      .toFixed(2);
     ///UPDATE cart total
     const productPrices = existingCart.products.map(
       (product) => product.productTotal
     );
-    existingCart.cartTotal = productPrices.reduce(
-      (accumulator, currentValue) => {
+    existingCart.cartTotal = productPrices
+      .reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
-      },
-      0
-    );
+      }, 0)
+      .toFixed(2);
     await existingCart.save();
     return res.status(200).json(existingCart);
   }

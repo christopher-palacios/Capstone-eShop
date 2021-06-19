@@ -49,7 +49,6 @@ function Header() {
     setCurrentUser(null);
     setIsSignedIn(false);
   };
-  console.log(cart);
   return (
     <nav className="nav">
       <Navbar className="nav__color" variant="dark" expand="sm">

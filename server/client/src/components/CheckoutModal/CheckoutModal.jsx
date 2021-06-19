@@ -3,17 +3,15 @@ import { AppContext } from "../../AppContext/AppContext";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../../components/Field/Field";
+import swal from "sweetalert";
 import axios from "axios";
-const stripeUrl = "https://api.stripe.com";
-const baseUrl = "http://localhost:8080/api";
 
 function CheckoutModal(props) {
-  const { cart, token, loading, setLoading, setPurchased, setCart } =
+  const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
     useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();
   const [formData, setFormData] = useState({});
-  const [stripeData, setStripeData] = useState();
   const CARD_OPTIONS = {
     iconStyle: "solid",
     style: {
@@ -59,7 +57,6 @@ function CheckoutModal(props) {
         },
       },
     });
-    console.log(paymentMethod);
     const { data } = await axios
       .post(
         `${baseUrl}/order/intent`,
@@ -70,9 +67,7 @@ function CheckoutModal(props) {
           },
         }
       )
-      .catch((err) => err.message);
-
-    console.log(data);
+      .catch((err) => console.log(err.message));
     const { paymentIntent } = await stripe.confirmCardPayment(data, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -90,8 +85,6 @@ function CheckoutModal(props) {
         },
       },
     });
-    console.log(paymentIntent);
-    console.log(paymentIntent.status === "succeeded");
     if (paymentIntent.status === "succeeded") {
       await axios
         .post(
@@ -105,13 +98,13 @@ function CheckoutModal(props) {
         )
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.message));
+      swal("Thank you for your purchase!", "Come back soon!");
       setLoading(false);
       setCart({});
       setPurchased(true);
       props.onHide();
     }
   };
-
   return (
     <Modal
       {...props}
