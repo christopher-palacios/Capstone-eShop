@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import Footer from "../../components/Footer/Footer";
 import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext/AppContext";
@@ -98,50 +99,53 @@ function OnSale(props) {
     });
   }, [props.match.params]);
   return (
-    <div className="section">
-      <Link
-        className="product__back"
-        to={`/categories/${selectedProduct.categoryId}`}
-      >
-        {" "}
-        {`Back To ${selectedProduct.category}`}
-      </Link>
-      <div className="product">
-        <img
-          className="product__img"
-          alt="product img"
-          src={selectedProduct.image}
-        ></img>
-        <div className="product__details">
-          <div className="product__details--top">
-            <div className="product__details--info">
-              <h1 className="product__details--title">
-                {selectedProduct.name}
-              </h1>
-              <h3 className="product__details--category">
-                {selectedProduct.category}
-              </h3>
-              <h4>{`Price: $${selectedProduct.price}`}</h4>
+    <>
+      <section className="section">
+        <Link
+          className="product__back"
+          to={`/categories/${selectedProduct.categoryId}`}
+        >
+          {" "}
+          {`Back To ${selectedProduct.category}`}
+        </Link>
+        <div className="product">
+          <img
+            className="product__img"
+            alt="product img"
+            src={selectedProduct.image}
+          ></img>
+          <div className="product__details">
+            <div className="product__details--top">
+              <div className="product__details--info">
+                <h1 className="product__details--title">
+                  {selectedProduct.name}
+                </h1>
+                <h3 className="product__details--category">
+                  {selectedProduct.category}
+                </h3>
+                <h4>{`Price: $${selectedProduct.price}`}</h4>
+              </div>
+              <div className="product__details--action">
+                <div className="product__details--qty"></div>
+                <Button
+                  onClick={() => {
+                    handleSubmit(selectedProduct);
+                  }}
+                  className="product__details--add"
+                  variant="outline-dark"
+                >
+                  ADD TO CART
+                </Button>
+              </div>
             </div>
-            <div className="product__details--action">
-              <div className="product__details--qty"></div>
-              <Button
-                onClick={() => {
-                  handleSubmit(selectedProduct);
-                }}
-                className="product__details--add"
-                variant="outline-dark"
-              >
-                ADD TO CART
-              </Button>
+            <div className="product__details--footer">
+              <p>{selectedProduct.description}</p>
             </div>
-          </div>
-          <div className="product__details--footer">
-            <p>{selectedProduct.description}</p>
           </div>
         </div>
-      </div>
-    </div>
+        <Footer />
+      </section>
+    </>
   );
 }
 

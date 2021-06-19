@@ -114,14 +114,6 @@ function Header() {
                 </>
               )}
             </NavDropdown>
-            {/* <Nav.Link href="/cart">
-             <ShoppingCartRoundedIcon className="nav__cart" />
-            {!cart.cartQuantity ? null : (
-               <Badge pill variant="light">
-                 {cart.cartQuantity}
-               </Badge>
-             )}
-           </Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
         <LoginModal

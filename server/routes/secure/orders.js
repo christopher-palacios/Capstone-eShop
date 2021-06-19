@@ -7,8 +7,6 @@ const Order = require("../../db/models/order");
 //Payment Intent
 router.post("/intent", async (req, res) => {
   const { cart, paymentMethod } = req.body;
-  // console.log("cart", cart);
-  // console.log("payment", paymentMethod);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: Math.floor(
       (Number(cart.cartTotal) * 0.07 + Number(cart.cartTotal)) * 100

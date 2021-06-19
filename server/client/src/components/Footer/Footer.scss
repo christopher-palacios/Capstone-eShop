@@ -1,0 +1,41 @@
+@use '../../partials/partials' as *;
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid $blue;
+  padding: 16px 0;
+  margin: 32px 40px 0 40px;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    width: 40vw;
+    @include tablet {
+      flex-direction: initial;
+    }
+    // height: 50px;
+  }
+  &__text {
+    margin: 8px;
+    font-size: 0.75rem;
+    color: $black;
+    &:hover {
+      color: $lightRed;
+    }
+    &:active {
+      color: $red;
+    }
+    @include tablet {
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+  &__stamp {
+    margin: 0;
+    font-size: 13px;
+  }
+}

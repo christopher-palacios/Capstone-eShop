@@ -20,11 +20,12 @@
     padding: 24px;
     // margin-right: 80px;
     // width: 343px;
-    height: 42rem;
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     @include tablet {
+      height: 42rem;
       // width: 660px;
     }
     @include desktop {
@@ -32,29 +33,38 @@
   }
   &__welcome {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
     padding: 36px;
     background-color: $grey;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-    // border-bottom-left-radius: 20px;
-    // width: 50%;
     height: 30%;
+
+    @include tablet {
+      flex-direction: initial;
+      justify-content: space-between;
+      align-items: center;
+    }
     &--close {
       height: 30px;
       width: 50px;
+      margin: 8px;
       border: 1px solid $blue;
       border-radius: 10px;
       background-color: $grey;
       &:hover {
-        background-color: $blue;
+        background-color: $red;
         color: $white;
       }
     }
     &--title {
       color: $black;
-      font-size: 60px;
+      font-size: 3rem;
+      padding: 8px 0;
+      @include tablet {
+        font-size: 60px;
+      }
     }
   }
   &__form {
@@ -84,11 +94,11 @@
     &--button {
       margin: 30px 0;
       border: none;
-      background-color: $grey;
+      background-color: $lightRed;
       border-radius: 10px;
       height: 38px;
       &:hover {
-        background-color: $blue;
+        background-color: $red;
         color: $white;
       }
       &:active {

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 import "./itemList.scss";
+import Footer from "../../components/Footer/Footer";
 import {
   Nav,
   Card,
@@ -38,74 +39,77 @@ function ItemList(props) {
     setDrop(current[0]?.name);
   }, [categoryList, id]);
   return (
-    <section className="itemList">
-      <div className="sub-nav">
-        <Nav className="sub-nav__links" activeKey="/home">
-          <DropdownButton
-            id="dropdown-basic-button"
-            variant="Secondary"
-            title={drop}
-          >
-            {categoryList.map((cat) => {
-              return (
-                <Dropdown.Item key={cat._id} href={`/categories/${cat._id}`}>
-                  {cat.name}
-                </Dropdown.Item>
-              );
-            })}
-            <Dropdown.Item href={`/categories`}>Categories</Dropdown.Item>
-          </DropdownButton>
-          <div className="sub-nav__form">
-            <Form inline>
-              <FormControl
-                type="text"
-                onChange={handleChange}
-                placeholder="Search"
-                className="sub-nav__form--input"
-              />
-              <Button className="sub-nav__form--button" variant="outline">
-                Search
-              </Button>
-            </Form>
-          </div>
-        </Nav>
-      </div>
-      <div className="shop">
-        <div className="shop__container">
-          <CardDeck className="shop__card">
-            {selectedCategory
-              ?.filter((item) => {
-                return item.name.toLowerCase().includes(search.toLowerCase());
-              })
-              .map((product) => {
+    <>
+      <section className="itemList">
+        <div className="sub-nav">
+          <Nav className="sub-nav__links" activeKey="/home">
+            <DropdownButton
+              id="dropdown-basic-button"
+              variant="Secondary"
+              title={drop}
+            >
+              {categoryList.map((cat) => {
                 return (
-                  <Card className="shop__card--indv" key={product._id}>
-                    <Card.Body className="shop__card--body">
-                      <Card.Link
-                        className="shop__card--top"
-                        href={`/product/${product._id}`}
-                      >
-                        <Card.Img
-                          className="shop__card--img"
-                          variant="top"
-                          src={product.image}
-                        />
-                      </Card.Link>
-                    </Card.Body>
-                    <Card.Footer className="shop__card--footer">
-                      <Card.Title>{product.name}</Card.Title>
-
-                      <small className="text-muted">
-                        <Card.Text>{`$${product.price}`}</Card.Text>
-                      </small>
-                    </Card.Footer>
-                  </Card>
+                  <Dropdown.Item key={cat._id} href={`/categories/${cat._id}`}>
+                    {cat.name}
+                  </Dropdown.Item>
                 );
               })}
-          </CardDeck>
+              <Dropdown.Item href={`/categories`}>Categories</Dropdown.Item>
+            </DropdownButton>
+            <div className="sub-nav__form">
+              <Form inline>
+                <FormControl
+                  type="text"
+                  onChange={handleChange}
+                  placeholder="Search"
+                  className="sub-nav__form--input"
+                />
+                <Button className="sub-nav__form--button" variant="outline">
+                  Search
+                </Button>
+              </Form>
+            </div>
+          </Nav>
         </div>
-      </div>
-    </section>
+        <div className="shop">
+          <div className="shop__container">
+            <CardDeck className="shop__card">
+              {selectedCategory
+                ?.filter((item) => {
+                  return item.name.toLowerCase().includes(search.toLowerCase());
+                })
+                .map((product) => {
+                  return (
+                    <Card className="shop__card--indv" key={product._id}>
+                      <Card.Body className="shop__card--body">
+                        <Card.Link
+                          className="shop__card--top"
+                          href={`/product/${product._id}`}
+                        >
+                          <Card.Img
+                            className="shop__card--img"
+                            variant="top"
+                            src={product.image}
+                          />
+                        </Card.Link>
+                      </Card.Body>
+                      <Card.Footer className="shop__card--footer">
+                        <Card.Title>{product.name}</Card.Title>
+
+                        <small className="text-muted">
+                          <Card.Text>{`$${product.price}`}</Card.Text>
+                        </small>
+                      </Card.Footer>
+                    </Card>
+                  );
+                })}
+            </CardDeck>
+          </div>
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 }
 

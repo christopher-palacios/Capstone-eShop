@@ -26,13 +26,14 @@
   &__feat {
     margin: 32px 0;
     border: 1px solid $lightBlue;
-    @include desktop {
-      margin-bottom: 60px;
+    &--text {
+      @include tablet {
+        font-size: 20px;
+      }
     }
-
     &--title {
       background-color: $grey;
-      font-size: 18px;
+      font-size: 28px;
     }
     &--button {
       background-color: $lightRed;
@@ -49,7 +50,7 @@
     border-radius: 5px;
     margin-bottom: 32px;
     &--title {
-      font-size: 18px;
+      font-size: 28px;
       background-color: $grey;
     }
     &--list-item {
@@ -65,8 +66,9 @@
       }
 
       @include desktop {
+        font-size: 20px;
+
         &:hover {
-          font-size: 19px;
         }
       }
     }

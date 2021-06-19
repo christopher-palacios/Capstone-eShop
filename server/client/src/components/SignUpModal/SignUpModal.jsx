@@ -37,6 +37,9 @@ function SignUpModal(props) {
       <div className="login__card">
         <div className="login__welcome">
           <h1 className="login__welcome--title">Get Started</h1>
+          <button className="login__welcome--close" onClick={props.signupClose}>
+            X
+          </button>
         </div>
         <form className="login__form" onSubmit={handleSubmit}>
           <div className="login__form--card">
