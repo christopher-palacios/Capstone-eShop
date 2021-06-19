@@ -51,7 +51,6 @@ export const ContextProvider = ({ children }) => {
   };
 
   //CART FUNCTIONS//
-
   //Get cart
   const getCart = async () => {
     axios
@@ -60,10 +59,10 @@ export const ContextProvider = ({ children }) => {
           authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => setCart(res.data))
+      .then((res) => console.log("cart", res.data))
       .catch((err) => swal("getCart", err.message));
   };
-
+  console.log(!cart.cartQuantity);
   //INCREASE product quantity in cart
   const increaseQty = async (product, cartId) => {
     if (!token) {
