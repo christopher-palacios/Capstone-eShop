@@ -7,7 +7,7 @@ import axios from "axios";
 const stripeUrl = "https://api.stripe.com";
 
 function CheckoutModal(props) {
-  const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
+  const { cart, token, loading, setLoading, setPurchased, setCart } =
     useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();
@@ -62,7 +62,7 @@ function CheckoutModal(props) {
 
     const { data } = await axios
       .post(
-        `${baseUrl}/order/intent`,
+        `${stripeUrl}/order/intent`,
         { cart, paymentMethod },
         {
           headers: {
