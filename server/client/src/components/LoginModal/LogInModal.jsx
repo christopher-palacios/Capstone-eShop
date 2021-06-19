@@ -72,15 +72,23 @@ function LogInModal(props) {
               Login
             </button>
           </div>
+          <h5 className="login__redirect">
+            Not a member?
+            <Link onClick={props.loginSwitch} to="">
+              {" "}
+              Sign Up{" "}
+            </Link>
+            here
+          </h5>
         </form>
-        <h5 className="login__redirect">
+        {/* <h5 className="login__redirect">
           Not a member?
           <Link onClick={props.loginSwitch} to="">
             {" "}
             Sign Up{" "}
           </Link>
           here
-        </h5>
+        </h5> */}
       </div>
     </Modal>
   );
