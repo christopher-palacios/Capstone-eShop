@@ -60,6 +60,7 @@ export function ShoppingCart() {
   if (!cart?.products || cart?.products?.length < 1) {
     return renderEmptyCartMessage();
   }
+  console.log(cart);
   return (
     <section className="cart">
       <div className="cart__list">

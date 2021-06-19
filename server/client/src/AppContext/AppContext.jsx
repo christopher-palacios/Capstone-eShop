@@ -59,10 +59,10 @@ export const ContextProvider = ({ children }) => {
           authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => console.log("cart", res.data))
+      .then((res) => setCart(res.data))
       .catch((err) => swal("getCart", err.message));
   };
-  console.log(!cart.cartQuantity);
+  console.log(cart);
   //INCREASE product quantity in cart
   const increaseQty = async (product, cartId) => {
     if (!token) {
