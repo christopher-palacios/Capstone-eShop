@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import CheckoutModal from "../../components/CheckoutModal/CheckoutModal";
 import { AppContext } from "../../AppContext/AppContext";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import { Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
 import "./ShoppingCart.scss";
 import Stripe from "../../components/Stripe/Stripe";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 export function ShoppingCart() {
   const {
@@ -153,12 +153,12 @@ export function ShoppingCart() {
         </div>
       )}
       <Stripe />
-      <Elements stripe={stripePromise}>
+      {/* <Elements loadStripe={stripePromise}>
         <CheckoutModal
           show={showCheckoutModal}
           onHide={() => setShowCheckoutModal(false)}
         />
-      </Elements>
+      </Elements> */}
     </section>
   );
 }

@@ -10,7 +10,7 @@ function Stripe() {
   console.log(typeof stripePromise);
   return (
     <>
-      <Elements loadStripe={stripePromise.toString()}>
+      <Elements stripe={stripePromise}>
         <CheckoutModal
           show={showCheckoutModal}
           onHide={() => setShowCheckoutModal(false)}
