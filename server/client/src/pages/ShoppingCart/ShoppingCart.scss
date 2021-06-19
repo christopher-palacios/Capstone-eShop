@@ -170,7 +170,8 @@
       height: 60px;
       margin-top: 25px;
       margin: 25px 24px 0 24px;
-      border-radius: 20px;
+      border: 1px solid $blue;
+      border-radius: 10px;
       &:hover {
         color: $white;
         background-color: $blue;

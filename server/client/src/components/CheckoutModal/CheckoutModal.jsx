@@ -7,12 +7,12 @@ import axios from "axios";
 const stripeUrl = "https://api.stripe.com";
 
 function CheckoutModal(props) {
-  const { cart, token, loading, setLoading, setPurchased, setCart } =
+  const { cart, token, loading, setLoading, setPurchased, setCart, baseUrl } =
     useContext(AppContext);
   const stripe = useStripe();
   const elements = useElements();
   const [formData, setFormData] = useState({});
-
+  const [stripeData, setStripeData] = useState();
   const CARD_OPTIONS = {
     iconStyle: "solid",
     style: {
@@ -40,7 +40,6 @@ function CheckoutModal(props) {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const handlePayment = async () => {
     setLoading(true);
     const { paymentMethod } = await stripe.createPaymentMethod({
@@ -59,19 +58,18 @@ function CheckoutModal(props) {
         },
       },
     });
+    console.log(paymentMethod);
+    const { data } = await axios.post(
+      `${baseUrl}/order/intent`,
+      { cart, paymentMethod },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-    const { data } = await axios
-      .post(
-        `${stripeUrl}/order/intent`,
-        { cart, paymentMethod },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .catch((err) => console.log(err.message));
-
+    console.log(data);
     const { paymentIntent } = await stripe.confirmCardPayment(data, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -89,11 +87,12 @@ function CheckoutModal(props) {
         },
       },
     });
-
+    console.log(paymentIntent);
+    console.log(paymentIntent.status === "succeeded");
     if (paymentIntent.status === "succeeded") {
       await axios
         .post(
-          `${stripeUrl}/order`,
+          `${baseUrl}/order`,
           { cart, transactionId: paymentIntent.id },
           {
             headers: {
