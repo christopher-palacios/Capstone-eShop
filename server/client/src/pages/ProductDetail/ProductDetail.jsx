@@ -139,7 +139,9 @@ function OnSale(props) {
               </div>
             </div>
             <div className="product__details--footer">
-              <p>{selectedProduct.description}</p>
+              <p className="product__details--text">
+                {selectedProduct.description}
+              </p>
             </div>
           </div>
         </div>
