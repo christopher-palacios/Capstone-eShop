@@ -78,7 +78,7 @@
       flex-direction: column;
     }
     &--label {
-      margin: 10px 0;
+      margin: 4px 0;
     }
     &--input {
       border-radius: 10px;
@@ -91,12 +91,12 @@
       }
     }
     &--button {
-      margin: 20px 0;
+      margin: 16px 0;
       padding: 6px;
       border: none;
       background-color: $lightRed;
       border-radius: 10px;
-      height: 38px;
+      height: 42px;
       &:hover {
         background-color: $red;
         color: $white;
