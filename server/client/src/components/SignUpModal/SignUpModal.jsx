@@ -71,7 +71,9 @@ function SignUpModal(props) {
               type="password"
               name="password"
             />
-            <button className="login__form--button">Sign Up</button>
+            <button onClick={handleSubmit} className="login__form--button">
+              Sign Up
+            </button>
           </div>
         </form>
         <h5 className="login__redirect">
