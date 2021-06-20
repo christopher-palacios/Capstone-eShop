@@ -41,7 +41,7 @@ function SignUpModal(props) {
             X
           </button>
         </div>
-        <form className="login__form" onSubmit={handleSubmit}>
+        <form className="login__form">
           <div className="login__form--card">
             <label className="login__form--label">First Name</label>
             <input
