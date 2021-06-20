@@ -22,6 +22,7 @@ export const ContextProvider = ({ children }) => {
   const [logInModalShow, setLogInModalShow] = useState(false);
   const [signUpModalShow, setSignUpModalShow] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
+
   let storage = JSON.parse(localStorage.getItem("guestCart"));
   const guestCart = {
     isOpen: true,
@@ -206,6 +207,19 @@ export const ContextProvider = ({ children }) => {
   //   });
   // };
 
+  const getCurrentUser = async () => {
+    try {
+      const { data } = await axios.get("/api/users/current", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setCurrentUser(data);
+    } catch (error) {
+      sessionStorage.clear();
+    }
+  };
+
   useEffect(() => {
     getCategoryList();
     getProductList();
@@ -223,10 +237,13 @@ export const ContextProvider = ({ children }) => {
       getCart();
     }
   }, [token]);
-
+  console.log("curruser", currentUser);
+  console.log("token", token);
   return (
     <AppContext.Provider
       value={{
+        // getCurrentUser,
+        // setFormData,
         baseUrl,
         randomItems,
         setRandomItems,

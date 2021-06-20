@@ -5,9 +5,12 @@ import axios from "axios";
 import { AppContext } from "../../AppContext/AppContext";
 
 // const baseUrl = "https://e-shop-cp.herokuapp.com/api";
-
+const baseUrl = "http://localhost:8080/api";
 function SignUpModal(props) {
-  const { baseUrl } = useContext(AppContext);
+  const {
+    // baseUrl,
+    setCurrentUser,
+  } = useContext(AppContext);
   const [formData, setFormData] = useState();
 
   const handleChange = (e) => {
@@ -19,15 +22,16 @@ function SignUpModal(props) {
 
   const handleSubmit = (e) => {
     // submit it to backend to receive token
+    e.preventdefault();
     axios
       .post(`${baseUrl}/users`, formData)
       .then((res) => {
-        //get token from response
-        const token = res.data.token;
-        //save token in session storage
-        sessionStorage.setItem("token", token);
+        // save token in session storage
+        sessionStorage.setItem("token", res.data.token);
+        //set current user with new user
+        setCurrentUser(res.data.newUser.firstName);
         //navigate user to home page
-        this.props.history.push("/");
+        // this.props.history.push("/");
       })
       .catch((err) => alert(err));
   };
@@ -71,14 +75,17 @@ function SignUpModal(props) {
               type="password"
               name="password"
             />
-            <button onClick={handleSubmit} className="login__form--button">
+            <button
+              onSubmit={() => handleSubmit()}
+              className="login__form--button"
+            >
               Sign Up
             </button>
           </div>
         </form>
         <h5 className="login__redirect">
           If already registered.
-          <Link onClick={props.signupSwitch} to="">
+          <Link onSubmit={props.signupSwitch} to="">
             {" "}
             Log In{" "}
           </Link>

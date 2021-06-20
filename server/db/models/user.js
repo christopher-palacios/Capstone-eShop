@@ -14,7 +14,7 @@ const userSchema = new Schema({
   },
   lastName: {
     type: String,
-    // required: true,
+    required: true,
     trim: true,
     lowercase: true,
   },
@@ -35,7 +35,7 @@ const userSchema = new Schema({
     required: true,
     trim: true,
     validate(value) {
-      if (value.length < 4) {
+      if (value.length < 3) {
         throw new Error("Password must be greater than 4 characters");
       }
     },
